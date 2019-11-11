@@ -1,14 +1,13 @@
+# 참고 : https://snowdeer.github.io/python/2018/09/11/pygame-example/
+
 import pygame
+import sys
 
-pygame.init()
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 640
+SIZE_RECT = 50
+DIST = 50
 
-width, height = 500, 500
-distance_to_go = 100
-
-TARGET_FPS = 50
-clock = pygame.time.Clock()
-
-# 상수 지정해놓기
 BLACK = (0,0,0)
 RED = (255,0,0)
 GREEN = (0,255,0)
@@ -16,49 +15,33 @@ BLUE = (0,0,255)
 YELLOW = (255,255,0)
 PURPLE = (100,0,100)
 
-# POS는 위치임
-POS = [0, 0]
-player = pygame.image.load("play.jpg")
-background = pygame.image.load("spiderman_new universe.jpg")
+pygame.init()
+pygame.display.set_caption("Simple PyGame Example")
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-screen = pygame.display.set_mode((width,height))
+pos_x = 200
+pos_y = 200
+
+clock = pygame.time.Clock()
 while True:
-    # 화면을 채운다 / 색깔로
-    screen.fill(PURPLE)
-
-    # 배경을 먼저 그려야 함
-    for x in range(width//background.get_width()+1):
-        for y in range(height//background.get_height()+1):
-            screen.blit(background, (x*300, y*300))
-
-    # 모든 요소를 다시 그린다 / 캐릭터들
-    screen.blit(player, (POS[0], POS[1]))
-
-    pygame.display.flip()
-
+    clock.tick(60)
     for event in pygame.event.get():
-        if not hasattr(event, 'key'):
-            continue
-
         if event.type == pygame.QUIT:
-                pygame.quit()
-                exit(0)
+            sys.exit()
 
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_RIGHT:
-                POS[0] += distance_to_go
+    key_event = pygame.key.get_pressed()
+    if key_event[pygame.K_LEFT]:
+        pos_x -= DIST
 
-            if event.key == pygame.K_LEFT:
-                POS[0] -= distance_to_go
+    if key_event[pygame.K_RIGHT]:
+        pos_x += DIST
 
-            if event.key == pygame.K_UP:
-                POS[1] -= distance_to_go
+    if key_event[pygame.K_UP]:
+        pos_y -= DIST
 
-            if event.key == pygame.K_DOWN:
-                POS[1] += distance_to_go
+    if key_event[pygame.K_DOWN]:
+        pos_y += DIST
 
-            if event.key == pygame.K_ESCAPE:
-                pygame.quit()
-                exit(0)
-
-    clock.tick(TARGET_FPS)
+    screen.fill(PURPLE)
+    pygame.draw.rect(screen, YELLOW, (pos_x, pos_y, SIZE_RECT, SIZE_RECT))
+    pygame.display.update()
