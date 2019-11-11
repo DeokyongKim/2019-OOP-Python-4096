@@ -8,12 +8,12 @@ SCREEN_HEIGHT = 640
 SIZE_RECT = 50
 DIST = 50
 
-BLACK = (0,0,0)
-RED = (255,0,0)
-GREEN = (0,255,0)
-BLUE = (0,0,255)
-YELLOW = (255,255,0)
-PURPLE = (100,0,100)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+YELLOW = (255, 255, 0)
+PURPLE = (100, 0, 100)
 
 pygame.init()
 pygame.display.set_caption("Simple PyGame Example")
