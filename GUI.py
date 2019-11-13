@@ -56,7 +56,7 @@ class GUI_screen(GUI_board_information, color_information):
 
         self.screen.fill(self.PURPLE)
         pygame.draw.rect(self.screen, self.YELLOW, (self.position_x, self.position_y, self.RECTANGULAR_SIZE, self.RECTANGULAR_SIZE))
-        pygame.display.update()
+        pygame.display.flip()
 
     def get_key(self):
         for event in pygame.event.get():
