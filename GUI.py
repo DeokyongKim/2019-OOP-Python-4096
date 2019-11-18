@@ -22,7 +22,9 @@ class color_information:
         '64COLOR': (229, 104, 71),
         '128COLOR': (233, 207, 127),
         '256COLOR': (232, 204, 114),
-        '512COLOR': (232, 200, 101)
+        '512COLOR': (232, 200, 101),
+        '1024COLOR': (231, 197, 89),
+        '2048COLOR': (231, 195, 79)
     }
 
 
@@ -154,12 +156,11 @@ class GUI_screen:
         self.screen_size = screen_size
         self.color = color
 
-    def show_screen(self):
+    def show_screen(self, box_size, box_position_x, box_position_y):
         screen = pygame.display.set_mode((self.screen_size, self.screen_size))
         screen.fill(color_information.color[self.color])
         a = GUI_key()
-        b = GUI_box(2, 60, 30, 30)
-        direction = a.return_key(b.size, b.position_x, b.position_y)
+        direction = a.return_key(box_size, box_position_x, box_position_y)
         for i in box_l:
             pygame.draw.rect(screen, color_information.color[i.color], (i.position_x, i.position_y, i.size, i.size))
             i.move(direction)
