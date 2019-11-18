@@ -50,6 +50,7 @@ class GUI_box:
     def move(self, direction):
         """
         change box's position by keyboard input information
+        얘는 실험용으로 만든거고 실제로 사용되지는 않습니다. 제대로 구현되었나 보는데 썼습니다.
         :param direction: str
         :return: None
         """
