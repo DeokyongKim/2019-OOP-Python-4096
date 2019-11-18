@@ -92,27 +92,27 @@ class GUI_key:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
                 self.direction = 'down'
 
-    def find_out_of_range(self, size, position_x, position_y):
-        """
-        get box's size and position and judge the 'direction' command is able to act
-        근데 이건 box 객체가 하는 게 맞다. 여기서 이럴 문제가 아님.
-        :param size: int
-        :param position_x: int
-        :param position_y: int
-        :return: None
-        """
-        self.get_key()
-        a = GUI_screen(300, 300)
-        for i in list(dir_l):
-            if self.direction == i:
-                if position_x + dir_l[i][0] * size < 0:
-                    self.direction = 'None'
-                elif position_x + dir_l[i][0] * size > a.screen_size - size:
-                    self.direction = 'None'
-                elif position_y + dir_l[i][1] * size < 0:
-                    self.direction = 'None'
-                elif position_y + dir_l[i][1] * size > a.screen_size - size:
-                    self.direction = 'None'
+    # def find_out_of_range(self, size, position_x, position_y):
+    #     """
+    #     get box's size and position and judge the 'direction' command is able to act
+    #     근데 이건 board에서 해결하는 것이 맞다. 여기서 이럴 문제가 아님. 영채 화이팅
+    #     :param size: int
+    #     :param position_x: int
+    #     :param position_y: int
+    #     :return: None
+    #     """
+    #     self.get_key()
+    #     a = GUI_screen(300, 300)
+    #     for i in list(dir_l):
+    #         if self.direction == i:
+    #             if position_x + dir_l[i][0] * size < 0:
+    #                 self.direction = 'None'
+    #             elif position_x + dir_l[i][0] * size > a.screen_size - size:
+    #                 self.direction = 'None'
+    #             elif position_y + dir_l[i][1] * size < 0:
+    #                 self.direction = 'None'
+    #             elif position_y + dir_l[i][1] * size > a.screen_size - size:
+    #                 self.direction = 'None'
 
     def return_key(self, size, position_x, position_y):
         """
