@@ -13,12 +13,16 @@ class color_information:
     about: color information in RGB
     """
     color = {
-        'BLACK': (0, 0, 0),
-        'RED': (255, 0, 0),
-        'GREEN': (0, 255, 0),
-        'BLUE': (0, 0, 255),
-        'YELLOW': (255, 255, 0),
-        'PURPLE': (100, 0, 100),
+        'BACKGROUND COLOR': (185, 173, 162),
+        'BACKGROUND BOX COLOR': (203, 193, 181),
+        '8COLOR': (233, 179, 219),
+        '16COLOR': (232, 153, 108),
+        '2COLOR': (236, 228, 219),
+        '4COLOR': (235, 224, 203),
+        '64COLOR': (229, 104, 71),
+        '128COLOR': (233, 207, 127),
+        '256COLOR': (232, 204, 114),
+        '512COLOR': (232, 200, 101)
     }
 
 
@@ -128,14 +132,14 @@ class GUI_management:
     """
     def add_box(self, number=int, size=int, pos_x=int, pos_y=int):
         global box_l
-        a = GUI_box(number, size, pos_x, pos_y, 'YELLOW')
+        a = GUI_box(number, size, pos_x, pos_y, '128COLOR')
         box_l.append(a)
 
     def run_game(self):
         global box_l
         self.add_box(2, 60, 30, 30)
         while True:
-            a = GUI_screen(300, 'PURPLE')
+            a = GUI_screen(300, 'BACKGROUND BOX COLOR')
             # self.add_box(2, 60, 30, 30)
             a.show_screen()
 
