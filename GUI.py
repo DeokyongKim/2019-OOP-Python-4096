@@ -140,11 +140,11 @@ class GUI_management:
 
     def run_game(self):
         global box_l
-        self.add_box(2, 60, 30, 30)
+        self.add_box(2, 140, 20, 20)
         while True:
-            a = GUI_screen(300, 'BACKGROUND BOX COLOR')
+            a = GUI_screen(600, 'BACKGROUND BOX COLOR')
             # self.add_box(2, 60, 30, 30)
-            a.show_screen()
+            a.show_screen(140, 20, 20)
 
 
 class GUI_screen:
