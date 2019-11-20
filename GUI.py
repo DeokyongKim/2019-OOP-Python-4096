@@ -157,6 +157,14 @@ class GUI_screen:
         self.screen_size = screen_size
         self.color = color
 
+    # 참고 : https://devnauts.tistory.com/61
+    def show_text(self, ):
+        fontObj = pygame.font.Font('myfont.ttf', 32)
+        textSurfaceObj = fontObj.render('Hello Font!', True, color_information.color['GREEN'])
+        textRectObj = textSurfaceObj.get_rect()
+        textRectObj.center = (150, 150)
+        screen.blit(textSurfaceObj, textRectObj)
+
     def show_screen(self, box_size, box_position_x, box_position_y):
         screen = pygame.display.set_mode((self.screen_size, self.screen_size))
         screen.fill(color_information.color[self.color])
