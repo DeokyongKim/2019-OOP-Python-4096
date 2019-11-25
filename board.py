@@ -105,16 +105,16 @@ def player_move():#플레이어의 상자 움직이기
                                 k.move_up()#박스를 위로 이동
 
         if player_move == 'down':#아래로 움직이는 경우
-            for i in range(s):
+            for i in range(s-1, -1, -1):
                 for j in range(s):
-                    if board[i][j]is not 0:#박스가 있는 칸 조사
+                    if board[i][j] is not 0:#박스가 있는 칸 조사
                         for k in boxes:
                             if k.locate == s*i+j+1:#모든 박스 중에서 위치가 동일한 박스 조사
                                 k.move_down()#박스를 아래로 이동
 
         if player_move == 'right':#오른쪽으로 움직이는 경우
             for i in range(s):
-                for j in range(s):
+                for j in range(s-1, -1, -1):
                     if board[i][j]!=0:#박스가 있는 칸 조사
                         for k in boxes:
                             if k.locate == s*i+j+1:#모든 박스 중에서 위치가 동일한 박스 조사
