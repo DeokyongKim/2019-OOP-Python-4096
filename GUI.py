@@ -1,6 +1,8 @@
 
 # 참고 : https://snowdeer.github.io/python/2018/09/11/pygame-example/
 
+from board import is_range_in
+
 import pygame
 import sys
 
@@ -93,6 +95,14 @@ class GUI_key:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
                 self.direction = 'down'
 
+    def get_number_key(self):
+        for event in pygame.event.get():
+            for i in range(2, 9):
+                if event.type == pygame.KEYDOWN and event.key == pygame.K_i:
+                    return i
+                else:
+                    return 0
+
     # def find_out_of_range(self, size, position_x, position_y):
     #     """
     #     get box's size and position and judge the 'direction' command is able to act
@@ -160,15 +170,30 @@ class GUI_screen:
         self.screen = pygame.display.set_mode((self.screen_size, self.screen_size))
 
     # 참고 : https://devnauts.tistory.com/61
-    def show_text(self, number, position_x, position_y):
-        font = pygame.font.SysFont("notosanscjkkr",30)
-        textSurfaceObj = font.render(str(number), True, color_information.color['BLACK'])
+    def show_text(self, word, position_x, position_y):
+        font = pygame.font.SysFont("notosanscjkkr", 60)
+        textSurfaceObj = font.render(str(word), True, color_information.color['BLACK'])
         self.screen.blit(textSurfaceObj, (position_x, position_y))
+
+    def start_page(self):
+        tmp = GUI_key()
+        did = False
+        while True:
+            if did:
+                self.show_text('Choose again! 2~8!!')
+            else:
+                self.show_text('Choose number 2~8', self.screen_size/2, self.screen_size/2)
+            b = tmp.get_number_key()
+            if b != 0:
+                return b
+            did = True
 
     def show_screen(self, box_size, box_position_x, box_position_y):
         self.screen.fill(color_information.color[self.color])
         a = GUI_key()
         direction = a.return_key(box_size, box_position_x, box_position_y)
+
+        return_size = self.start_page()
         for i in box_l:
             pygame.draw.rect(self.screen, color_information.color[i.color], (i.position_x, i.position_y, i.size, i.size))
             self.show_text(i.number, i.position_x + i.size/2, i.position_y + i.size/2)
