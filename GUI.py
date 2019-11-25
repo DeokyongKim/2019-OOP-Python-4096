@@ -169,8 +169,9 @@ class GUI_management:
 
     def show_start_page(self):
         tmp = GUI_key()
-        self.screen.show_text('Choose number 2~8', self.screen.screen_size / 3, self.screen.screen_size / 2)
         while True:
+            self.screen.show_text('Choose number 2~8', int(self.screen.screen_size / 3),
+                                  int(self.screen.screen_size / 2))
             b = tmp.get_number_key()
             print(b)
             if b != 0:
@@ -222,3 +223,8 @@ class GUI_screen:
             i.move(direction)
         pygame.display.flip()
 
+
+if __name__ == '__main__':
+    a = GUI_management()
+    a.show_start_page()
+    a.run_game()
