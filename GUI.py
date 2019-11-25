@@ -6,8 +6,7 @@ import pygame
 import sys
 
 dir_l = {'left': (-1, 0), 'right': (1, 0), 'up': (0, -1), 'down': (0, 1)}
-box_l = []
-board_size_number = 0
+# box_l = []
 
 
 class color_information:
@@ -51,21 +50,21 @@ class GUI_box:
         self.position_y = pos_y
         self.color = color
 
-    def move(self, direction):
-        """
-        change box's position by keyboard input information
-        얘는 실험용으로 만든거고 실제로 사용되지는 않습니다. 제대로 구현되었나 보는데 썼습니다.
-        :param direction: str
-        :return: None
-        """
-        s = self.size
-        px = self.position_x
-        py = self.position_y
-        if direction != 'None':
-            for i in list(dir_l):
-                if direction == i:
-                    self.position_x += dir_l[i][0] * self.size
-                    self.position_y += dir_l[i][1] * self.size
+    # def move(self, direction):
+    #     """
+    #     change box's position by keyboard input information
+    #     얘는 실험용으로 만든거고 실제로 사용되지는 않습니다. 제대로 구현되었나 보는데 썼습니다.
+    #     :param direction: str
+    #     :return: None
+    #     """
+    #     s = self.size
+    #     px = self.position_x
+    #     py = self.position_y
+    #     if direction != 'None':
+    #         for i in list(dir_l):
+    #             if direction == i:
+    #                 self.position_x += dir_l[i][0] * self.size
+    #                 self.position_y += dir_l[i][1] * self.size
 
 
 class GUI_key:
@@ -140,19 +139,19 @@ class GUI_key:
     #             elif position_y + dir_l[i][1] * size > a.screen_size - size:
     #                 self.direction = 'None'
 
-    def return_key(self, size, position_x, position_y):
-        """
-
-        :param size: int
-        :param position_x:
-        :param position_y:
-        :return: None
-        """
-        self.get_key()
-        # self.find_out_of_range(size, position_x, position_y)
-        if self.direction != 'None':
-            print(self.direction)
-        return self.direction
+    # def return_key(self, size, position_x, position_y):
+    #     """
+    #
+    #     :param size: int
+    #     :param position_x:
+    #     :param position_y:
+    #     :return: None
+    #     """
+    #     self.get_key()
+    #     # self.find_out_of_range(size, position_x, position_y)
+    #     if self.direction != 'None':
+    #         print(self.direction)
+    #     return self.direction
 
 
 class GUI_management:
@@ -160,21 +159,21 @@ class GUI_management:
     about: manage objects ( boxes ) and screen, all game
     """
     def __init__(self):
-        self.screen = GUI_screen(600, 'BACKGROUND BOX COLOR')
+        self.screen = GUI_screen(5)
 
-    def add_box(self, number=int, size=int, pos_x=int, pos_y=int):
-        """
-        이건 board에서 구현할 내용
-        여기는 실험을 위해 넣어놓았다
-        :param number: int
-        :param size: int
-        :param pos_x: int
-        :param pos_y: int
-        :return: None
-        """
-        global box_l
-        a = GUI_box(number, size, pos_x, pos_y, '128COLOR')
-        box_l.append(a)
+    # def add_box(self, number=int, size=int, pos_x=int, pos_y=int):
+    #     """
+    #     이건 board에서 구현할 내용
+    #     여기는 실험을 위해 넣어놓았다
+    #     :param number: int
+    #     :param size: int
+    #     :param pos_x: int
+    #     :param pos_y: int
+    #     :return: None
+    #     """
+    #     global box_l
+    #     a = GUI_box(number, size, pos_x, pos_y, '128COLOR')
+    #     box_l.append(a)
 
     def show_start_page(self):
         tmp = GUI_key()
@@ -186,13 +185,13 @@ class GUI_management:
             if b != 0:
                 return b
 
-    def run_game(self):
-        global box_l
-        self.add_box(2, 140, 20, 20)
-
-        while True:
-            # self.add_box(2, 60, 30, 30)
-            self.screen.show_screen(140, 20, 20)
+    # def run_game(self):
+    #     # global box_l
+    #     # self.add_box(2, 140, 20, 20)
+    #
+    #     while True:
+    #         # self.add_box(2, 60, 30, 30)
+    #         self.screen.show_screen(140, 20, 20)
 
 
 class GUI_screen:
@@ -201,10 +200,10 @@ class GUI_screen:
     """
     pygame.init()
 
-    def __init__(self, screen_size=int, color=str):
+    def __init__(self, screen_size=int):
         self.screen_size = screen_size
-        self.color = color
-        self.screen = pygame.display.set_mode((self.screen_size, self.screen_size))
+        self.color = 'BACKGROUND COLOR'
+        self.screen = pygame.display.set_mode((self.screen_size*40, self.screen_size*40))
 
     # 참고 : https://nightshadow.tistory.com/entry/pygame-에서-텍스트-출력
     def show_text(self, word, position_x, position_y):
@@ -221,19 +220,18 @@ class GUI_screen:
         self.screen.blit(textSurfaceObj, (position_x, position_y))
         pygame.display.flip()
 
-    def show_screen(self, box_size, box_position_x, box_position_y):
+    def show_screen(self, board):
         self.screen.fill(color_information.color[self.color])
-        a = GUI_key()
-        direction = a.return_key(box_size, box_position_x, box_position_y)
 
-        for i in box_l:
-            pygame.draw.rect(self.screen, color_information.color[i.color], (i.position_x, i.position_y, i.size, i.size))
-            self.show_text(i.number, i.position_x + i.size/2, i.position_y + i.size/2)
-            i.move(direction)
+        for i in range(self.screen_size):
+            for j in range(self.screen_size):
+                box_color = str(board[i][j]) + 'COLOR'
+                pygame.draw.rect(self.screen, color_information.color[box_color], (i, j, 20, 20))
+                self.show_text(board[i][j], i, j)
         pygame.display.flip()
 
 
 if __name__ == '__main__':
     a = GUI_management()
     a.show_start_page()
-    a.run_game()
+    # a.run_game()
