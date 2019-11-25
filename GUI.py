@@ -13,6 +13,7 @@ class color_information:
     about: color information in RGB
     """
     color = {
+        'BLACK': (0, 0, 0),
         'BACKGROUND COLOR': (185, 173, 162),
         'BACKGROUND BOX COLOR': (203, 193, 181),
         '8COLOR': (233, 179, 219),
@@ -159,12 +160,10 @@ class GUI_screen:
         self.screen = pygame.display.set_mode((self.screen_size, self.screen_size))
 
     # 참고 : https://devnauts.tistory.com/61
-    def show_text(self, position_x, position_y):
-        fontObj = pygame.font.Font('Roboto-Light.ttf', 32)
-        textSurfaceObj = fontObj.render('Hello Font!', True, color_information.color['GREEN'])
-        textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (position_x, position_y)
-        self.screen.blit(textSurfaceObj, textRectObj)
+    def show_text(self, number, position_x, position_y):
+        font = pygame.font.SysFont("notosanscjkkr",30)
+        textSurfaceObj = font.render(str(number), True, color_information.color['BLACK'])
+        self.screen.blit(textSurfaceObj, (position_x, position_y))
 
     def show_screen(self, box_size, box_position_x, box_position_y):
         self.screen.fill(color_information.color[self.color])
@@ -172,6 +171,7 @@ class GUI_screen:
         direction = a.return_key(box_size, box_position_x, box_position_y)
         for i in box_l:
             pygame.draw.rect(self.screen, color_information.color[i.color], (i.position_x, i.position_y, i.size, i.size))
+            self.show_text(i.number, i.position_x + i.size/2, i.position_y + i.size/2)
             i.move(direction)
         pygame.display.flip()
 
