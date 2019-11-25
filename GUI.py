@@ -218,8 +218,8 @@ class GUI_screen:
         """
         font = pygame.font.SysFont("notosanscjkkr", 30)
         textSurfaceObj = font.render(str(word), True, color_information.color['WHITE'])
-        pygame.display.flip()
         self.screen.blit(textSurfaceObj, (position_x, position_y))
+        pygame.display.flip()
 
     def show_screen(self, box_size, box_position_x, box_position_y):
         self.screen.fill(color_information.color[self.color])

@@ -110,6 +110,7 @@ def gen_box_locate(): #비어있는 곳을 찾고 그 곳중 랜덤한 위치 �
 
 def player_move():#플레이어의 상자 움직이기
     while True:#플레이어의 상자 움직이는 방향 입력받음
+        print('direction?')
         player_move = input('direction?')
 
         if player_move == 'up':#위로 움직이는 경우
