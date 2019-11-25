@@ -3,7 +3,7 @@ import random
 class box:#박스 객체 선언
 
     def __init__(self, num, locate, color):
-        self.num=num
+        self.num = num
         self.locate = locate
         self.color = color
         self.y = (locate-1)//s

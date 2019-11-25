@@ -7,6 +7,7 @@ import sys
 
 dir_l = {'left': (-1, 0), 'right': (1, 0), 'up': (0, -1), 'down': (0, 1)}
 box_l = []
+board_size_number = 0
 
 
 class color_information:
@@ -158,22 +159,29 @@ class GUI_management:
     """
     about: manage objects ( boxes ) and screen, all game
     """
+    def __init__(self):
+        self.screen = GUI_screen(600, 'BACKGROUND BOX COLOR')
+
     def add_box(self, number=int, size=int, pos_x=int, pos_y=int):
         global box_l
         a = GUI_box(number, size, pos_x, pos_y, '128COLOR')
         box_l.append(a)
 
+    def show_start_page(self):
+        tmp = GUI_key()
+        while True:
+            self.screen.show_text('Choose number 2~8', self.screen.screen_size/3, self.screen.screen_size/2)
+            b = tmp.get_number_key()
+            print(b)
+            return b
+
     def run_game(self):
         global box_l
         self.add_box(2, 140, 20, 20)
-        num = 0
-        a = GUI_screen(600, 'BACKGROUND BOX COLOR')
 
-        while num == 0:
-            num = a.show_start_page()
         while True:
             # self.add_box(2, 60, 30, 30)
-            a.show_screen(140, 20, 20)
+            self.screen.show_screen(140, 20, 20)
 
 
 class GUI_screen:
@@ -201,14 +209,6 @@ class GUI_screen:
         textSurfaceObj = font.render(str(word), True, color_information.color['WHITE'])
         pygame.display.flip()
         self.screen.blit(textSurfaceObj, (position_x, position_y))
-
-    def show_start_page(self):
-        tmp = GUI_key()
-        while True:
-            self.show_text('Choose number 2~8', self.screen_size/3, self.screen_size/2)
-            b = tmp.get_number_key()
-            print(b)
-            return b
 
     def show_screen(self, box_size, box_position_x, box_position_y):
         self.screen.fill(color_information.color[self.color])
