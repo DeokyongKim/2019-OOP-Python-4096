@@ -170,7 +170,7 @@ class GUI_management:
         a = GUI_screen(600, 'BACKGROUND BOX COLOR')
 
         while num == 0:
-            num = a.start_page()
+            num = a.show_start_page()
         while True:
             # self.add_box(2, 60, 30, 30)
             a.show_screen(140, 20, 20)
@@ -189,12 +189,20 @@ class GUI_screen:
 
     # 참고 : https://nightshadow.tistory.com/entry/pygame-에서-텍스트-출력
     def show_text(self, word, position_x, position_y):
+        """
+        show text on screen
+        원하는 문장을 원하는 위치에 표시함
+        :param word: any type.
+        :param position_x: int
+        :param position_y: int
+        :return:
+        """
         font = pygame.font.SysFont("notosanscjkkr", 30)
         textSurfaceObj = font.render(str(word), True, color_information.color['WHITE'])
         pygame.display.flip()
         self.screen.blit(textSurfaceObj, (position_x, position_y))
 
-    def start_page(self):
+    def show_start_page(self):
         tmp = GUI_key()
         while True:
             self.show_text('Choose number 2~8', self.screen_size/3, self.screen_size/2)
