@@ -148,16 +148,15 @@ def player_move():#플레이어의 상자 움직이기
             break
 
 
-
-
-
+from GUI import GUI_management
 
 while True:
+    tmp = GUI_management()
     while True:#변 길이 입력받기
-        s = input("한 변의 크기를 입력해 주세요 (2~8):")
-        if is_range_in(s): #s가 2~8까지의 문자인지 판별
-            s = int(s) #정수로 변환
-            break #정수가 아니면 재입력
+        print("한 변의 크기를 입력해 주세요 (2~8):")
+        s = tmp.show_start_page()
+        if s != 0:
+            break
 
     board = []
 

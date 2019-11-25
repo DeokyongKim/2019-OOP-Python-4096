@@ -115,7 +115,7 @@ class GUI_key:
                     return 7
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_8:
                     return 8
-                else:
+                elif event.type == pygame.KEYDOWN:
                     return 0
 
     # def find_out_of_range(self, size, position_x, position_y):
@@ -169,11 +169,12 @@ class GUI_management:
 
     def show_start_page(self):
         tmp = GUI_key()
+        self.screen.show_text('Choose number 2~8', self.screen.screen_size / 3, self.screen.screen_size / 2)
         while True:
-            self.screen.show_text('Choose number 2~8', self.screen.screen_size/3, self.screen.screen_size/2)
             b = tmp.get_number_key()
             print(b)
-            return b
+            if b != 0:
+                return b
 
     def run_game(self):
         global box_l
@@ -221,6 +222,3 @@ class GUI_screen:
             i.move(direction)
         pygame.display.flip()
 
-
-a = GUI_management()
-a.run_game()
