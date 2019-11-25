@@ -156,22 +156,22 @@ class GUI_screen:
     def __init__(self, screen_size=int, color=str):
         self.screen_size = screen_size
         self.color = color
+        self.screen = pygame.display.set_mode((self.screen_size, self.screen_size))
 
     # 참고 : https://devnauts.tistory.com/61
-    def show_text(self, ):
-        fontObj = pygame.font.Font('myfont.ttf', 32)
+    def show_text(self, position_x, position_y):
+        fontObj = pygame.font.Font('Roboto-Light.ttf', 32)
         textSurfaceObj = fontObj.render('Hello Font!', True, color_information.color['GREEN'])
         textRectObj = textSurfaceObj.get_rect()
-        textRectObj.center = (150, 150)
-        screen.blit(textSurfaceObj, textRectObj)
+        textRectObj.center = (position_x, position_y)
+        self.screen.blit(textSurfaceObj, textRectObj)
 
     def show_screen(self, box_size, box_position_x, box_position_y):
-        screen = pygame.display.set_mode((self.screen_size, self.screen_size))
-        screen.fill(color_information.color[self.color])
+        self.screen.fill(color_information.color[self.color])
         a = GUI_key()
         direction = a.return_key(box_size, box_position_x, box_position_y)
         for i in box_l:
-            pygame.draw.rect(screen, color_information.color[i.color], (i.position_x, i.position_y, i.size, i.size))
+            pygame.draw.rect(self.screen, color_information.color[i.color], (i.position_x, i.position_y, i.size, i.size))
             i.move(direction)
         pygame.display.flip()
 
