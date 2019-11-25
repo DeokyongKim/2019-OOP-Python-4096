@@ -163,6 +163,15 @@ class GUI_management:
         self.screen = GUI_screen(600, 'BACKGROUND BOX COLOR')
 
     def add_box(self, number=int, size=int, pos_x=int, pos_y=int):
+        """
+        이건 board에서 구현할 내용
+        여기는 실험을 위해 넣어놓았다
+        :param number: int
+        :param size: int
+        :param pos_x: int
+        :param pos_y: int
+        :return: None
+        """
         global box_l
         a = GUI_box(number, size, pos_x, pos_y, '128COLOR')
         box_l.append(a)
