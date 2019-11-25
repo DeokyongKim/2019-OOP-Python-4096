@@ -15,9 +15,13 @@ class box:#박스 객체 선언
             if board[self.y-1][self.x]==board[self.y][self.x] and self.y>0:#위에 칸이 있고 값이 같으면 병합
                 board[self.y][self.x]=0
                 board[self.y-1][self.x] = 2 * self.num
+                for l in boxes:#기존의 박스 제거
+                    if l.locate == self.locate-s:
+                        boxes.remove(l)
+                        break
                 self.y = self.y - 1
                 self.locate = self.locate - s
-                break
+                self.num = 2 * self.num
 
             elif board[self.y-1][self.x]==0 and self.y>0: #위에 칸이 있고 비어있으면 위로 이동
                 board[self.y][self.x]=0
@@ -32,9 +36,13 @@ class box:#박스 객체 선언
             if self.y < s-1 and board[self.y+1][self.x]==board[self.y][self.x]:#위에 칸이 있고 값이 같으면 병합
                 board[self.y][self.x]=0
                 board[self.y+1][self.x] = 2 * self.num
+                for l in boxes:
+                    if l.locate == self.locate+s:#기존의 박스 제거
+                        boxes.remove(l)
+                        break
                 self.y = self.y + 1
                 self.locate = self.locate + s
-                break
+                self.num = 2 * self.num
 
             elif self.y < s-1 and board[self.y+1][self.x]==0:#아래에 칸이 있고 비어있으면 아래로 이동
                 board[self.y][self.x]=0
@@ -46,12 +54,16 @@ class box:#박스 객체 선언
 
     def move_right(self):#오른쪽으로 이동
         while True:#이동 못할 때 까지 반복
-            if self.x < s-1 and board[self.y][self.x+1]==board[self.y][self.x]:#위에 칸이 있고 값이 같으면 병합
+            if self.x < s-1 and board[self.y][self.x+1]==board[self.y][self.x]:#오른쪽에 칸이 있고 값이 같으면 병합
                 board[self.y][self.x]=0
                 board[self.y][self.x+1] = 2 * self.num
+                for l in boxes:#기존의 박스 제거
+                    if l.locate == self.locate+1:
+                        boxes.remove(l)
+                        break
                 self.x = self.x + 1
                 self.locate = self.locate + 1
-                break
+                self.num = 2 * self.num
 
             elif self.x < s-1 and board[self.y][self.x+1]==0:#오른쪽에 칸이 있고 비어있으면 오른쪽으로 이동
                 board[self.y][self.x]=0
@@ -66,9 +78,13 @@ class box:#박스 객체 선언
             if board[self.y][self.x-1]==board[self.y][self.x] and self.x > 0:#왼쪽에 칸이 있고 비어있으면 왼쪽으로 이동
                 board[self.y][self.x]=0
                 board[self.y][self.x-1]= 2 * self.num
+                for l in boxes:#기존의 박스 제거
+                    if l.locate == self.locate-1:
+                        boxes.remove(l)
+                        break
                 self.x = self.x - 1
                 self.locate = self.locate - 1
-                break
+                self.num = 2 * self.num
 
             elif board[self.y][self.x-1]==0 and self.x > 0:#왼쪽에 칸이 있고 비어있으면 왼쪽으로 이동
                 board[self.y][self.x]=0
@@ -150,14 +166,12 @@ while True:
 
     boxes=[]
 
-    boxes.append(box(random.choice([2, 4]), random.choice(gen_box_locate()), 'White'))#상자 랜덤한 위치에 생성
-
     while True:#상자 생성 - 상자 움직이기 실행
+        boxes.append(box(random.choice([2, 4]), random.choice(gen_box_locate()), 'White'))  # 상자 랜덤한 위치에 생성
         for i in range(s):
             for j in range(s):
                 print("%d " %board[i][j],end='')
             print()
         player_move()#방향 입력 받아 움직이기
-        boxes.append(box(random.choice([2, 4]), random.choice(gen_box_locate()), 'White'))#상자 랜덤한 위치에 생성
 
 
