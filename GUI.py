@@ -186,8 +186,10 @@ class GUI_management:
 
     def show_start_page(self):
         while True:
-            self.screen.show_text('Choose number 2~8', int(self.screen.screen_size / 3),
-                                  int(self.screen.screen_size / 2))
+            self.screen.show_text('Hello This is 2048', int(self.screen.screen_size * 100 / 4),
+                                  int(self.screen.screen_size * 200 / 5))
+            self.screen.show_text('Choose number 2~8', int(self.screen.screen_size * 100 / 4),
+                                  int(self.screen.screen_size * 300 / 5))
 
             b = GUI_key.get_number_key()
             print(b)
