@@ -18,10 +18,11 @@ class color_information:
         'WHITE': (255, 255, 255),
         'BACKGROUND COLOR': (185, 173, 162),
         'BACKGROUND BOX COLOR': (203, 193, 181),
-        '8COLOR': (233, 179, 219),
-        '16COLOR': (232, 153, 108),
         '2COLOR': (236, 228, 219),
         '4COLOR': (235, 224, 203),
+        '8COLOR': (233, 179, 219),
+        '16COLOR': (232, 153, 108),
+        '32COLOR': (231, 130, 103),
         '64COLOR': (229, 104, 71),
         '128COLOR': (233, 207, 127),
         '256COLOR': (232, 204, 114),
@@ -29,6 +30,16 @@ class color_information:
         '1024COLOR': (231, 197, 89),
         '2048COLOR': (231, 195, 79)
     }
+
+    def return_color(self, number):
+        if number == 0:
+            return self.color['BACKGROUND BOX COLOR']
+        else:
+            for i in [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]:
+                c = str(i) + 'COLOR'
+                if number == i:
+                    return self.color[c]
+        return self.color['BACKGROUND COLOR']
 
 
 class GUI_box:
@@ -71,10 +82,8 @@ class GUI_key:
     """
     about: get keyboard input and manage them
     """
-    def __init__(self):
-        self.direction = 'None'
 
-    def get_key(self):
+    def get_key():
         """
         get keyboard input and turn them into str object
         :return: None
@@ -84,18 +93,18 @@ class GUI_key:
                 sys.exit()
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
-                self.direction = 'left'
+                return 'left'
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
-                self.direction = 'right'
+                return 'right'
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
-                self.direction = 'up'
+                return 'up'
 
             if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
-                self.direction = 'down'
+                return 'down'
 
-    def get_number_key(self):
+    def get_number_key():
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -176,11 +185,10 @@ class GUI_management:
     #     box_l.append(a)
 
     def show_start_page(self):
-        tmp = GUI_key()
         while True:
             self.screen.show_text('Choose number 2~8', int(self.screen.screen_size / 3),
                                   int(self.screen.screen_size / 2))
-            b = tmp.get_number_key()
+            b = GUI_key.get_number_key()
             print(b)
             if b != 0:
                 return b
@@ -200,10 +208,10 @@ class GUI_screen:
     """
     pygame.init()
 
-    def __init__(self, screen_size=int):
+    def __init__(self, screen_size):
         self.screen_size = screen_size
         self.color = 'BACKGROUND COLOR'
-        self.screen = pygame.display.set_mode((self.screen_size*40, self.screen_size*40))
+        self.screen = pygame.display.set_mode((self.screen_size*50, self.screen_size*50))
 
     # 참고 : https://nightshadow.tistory.com/entry/pygame-에서-텍스트-출력
     def show_text(self, word, position_x, position_y):
@@ -225,13 +233,16 @@ class GUI_screen:
 
         for i in range(self.screen_size):
             for j in range(self.screen_size):
-                box_color = str(board[i][j]) + 'COLOR'
-                pygame.draw.rect(self.screen, color_information.color[box_color], (i, j, 20, 20))
-                self.show_text(board[i][j], i, j)
+                c_i = color_information()
+                box_color = c_i.return_color(board[i][j])
+                pygame.draw.rect(self.screen, box_color, (i * 50 + 5, j * 50 + 5, 40, 40))
+                self.show_text(board[i][j], i * 50 + 5, j * 50 + 5)
         pygame.display.flip()
 
 
 if __name__ == '__main__':
-    a = GUI_management()
-    a.show_start_page()
+    # a = GUI_management()
+    # a.show_start_page()
     # a.run_game()
+    b = str(2) + 'COLOR'
+    print(b)

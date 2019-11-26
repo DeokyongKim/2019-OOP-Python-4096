@@ -188,7 +188,7 @@ while True:
             for j in range(s):
                 print("%d " % board[i][j], end='')
             print()
-        screen.show_screen(boxes)
+        screen.show_screen(board)
         player_move()
         # 방향 입력 받아 움직이기
 
