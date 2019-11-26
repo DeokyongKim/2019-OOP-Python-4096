@@ -13,7 +13,7 @@ class box:#박스 객체 선언
         self.x = (locate-1)%s
         board[self.y][self.x] = self.num
 
-    def move_up(self):#위로 이동
+    def move_left(self):#위로 이동
         while True:#이동 못할 때 까지 반복
             if board[self.y-1][self.x]==board[self.y][self.x] and self.y>0:#위에 칸이 있고 값이 같으면 병합
                 board[self.y][self.x]=0
@@ -34,7 +34,7 @@ class box:#박스 객체 선언
             else:
                 break
 
-    def move_down(self):#아래로 이동
+    def move_right(self):#아래로 이동
         while True:#이동 못할 때 까지 반복
             if self.y < s-1 and board[self.y+1][self.x]==board[self.y][self.x]:#위에 칸이 있고 값이 같으면 병합
                 board[self.y][self.x]=0
@@ -55,7 +55,7 @@ class box:#박스 객체 선언
             else:
                 break
 
-    def move_right(self):#오른쪽으로 이동
+    def move_down(self):#오른쪽으로 이동
         while True:#이동 못할 때 까지 반복
             if self.x < s-1 and board[self.y][self.x+1]==board[self.y][self.x]:#오른쪽에 칸이 있고 값이 같으면 병합
                 board[self.y][self.x]=0
@@ -76,7 +76,7 @@ class box:#박스 객체 선언
             else:
                 break
 
-    def move_left(self):#왼쪽으로 이동
+    def move_up(self):#왼쪽으로 이동
         while True:#이동 못할 때 까지 반복
             if board[self.y][self.x-1]==board[self.y][self.x] and self.x > 0:#왼쪽에 칸이 있고 비어있으면 왼쪽으로 이동
                 board[self.y][self.x]=0

@@ -212,7 +212,7 @@ class GUI_screen:
     def __init__(self, screen_size):
         self.screen_size = screen_size
         self.color = 'BACKGROUND COLOR'
-        self.screen = pygame.display.set_mode((self.screen_size*50, self.screen_size*50))
+        self.screen = pygame.display.set_mode((self.screen_size*100, self.screen_size*100))
 
     # 참고 : https://nightshadow.tistory.com/entry/pygame-에서-텍스트-출력
     def show_text(self, word, position_x, position_y):
@@ -224,7 +224,7 @@ class GUI_screen:
         :param position_y: int
         :return:
         """
-        font = pygame.font.SysFont("notosanscjkkr", 30)
+        font = pygame.font.SysFont("notosanscjkkr", 40)
         textSurfaceObj = font.render(str(word), True, color_information.color['WHITE'])
         self.screen.blit(textSurfaceObj, (position_x, position_y))
         pygame.display.flip()
@@ -236,8 +236,9 @@ class GUI_screen:
             for j in range(self.screen_size):
                 c_i = color_information()
                 box_color = c_i.return_color(board[i][j])
-                pygame.draw.rect(self.screen, box_color, (i * 50 + 5, j * 50 + 5, 40, 40))
-                self.show_text(board[i][j], i * 50 + 5, j * 50 + 5)
+                pygame.draw.rect(self.screen, box_color, (i * 100 + 10, j * 100 + 10, 80, 80))
+                if board[i][j] != 0:
+                    self.show_text(board[i][j], i * 100 + 40, j * 100 + 40)
         pygame.display.flip()
 
 
