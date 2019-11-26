@@ -188,6 +188,7 @@ class GUI_management:
         while True:
             self.screen.show_text('Choose number 2~8', int(self.screen.screen_size / 3),
                                   int(self.screen.screen_size / 2))
+
             b = GUI_key.get_number_key()
             print(b)
             if b != 0:
