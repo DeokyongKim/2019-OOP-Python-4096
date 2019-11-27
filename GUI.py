@@ -1,12 +1,12 @@
 
 # 참고 : https://snowdeer.github.io/python/2018/09/11/pygame-example/
-
+# 참고 : https://bluese05.tistory.com/5
+# 참고 : https://nightshadow.tistory.com/entry/pygame-에서-텍스트-출력
 
 import pygame
 import sys
 
 dir_l = {'left': (-1, 0), 'right': (1, 0), 'up': (0, -1), 'down': (0, 1)}
-# box_l = []
 
 
 class color_information:
@@ -40,42 +40,6 @@ class color_information:
                 if number == i:
                     return self.color[c]
         return self.color['BACKGROUND COLOR']
-
-#
-# class GUI_box:
-#     """
-#     about: make box object and save their information
-#     """
-#     def __init__(self, number=int, size=int, pos_x=int, pos_y=int, color=str):
-#         """
-#         save box's information such as...
-#         :param number: int
-#         :param size: int
-#         :param pos_x: int
-#         :param pos_y: int
-#         :param color: str
-#         """
-#         self.number = number
-#         self.size = size
-#         self.position_x = pos_x
-#         self.position_y = pos_y
-#         self.color = color
-
-    # def move(self, direction):
-    #     """
-    #     change box's position by keyboard input information
-    #     얘는 실험용으로 만든거고 실제로 사용되지는 않습니다. 제대로 구현되었나 보는데 썼습니다.
-    #     :param direction: str
-    #     :return: None
-    #     """
-    #     s = self.size
-    #     px = self.position_x
-    #     py = self.position_y
-    #     if direction != 'None':
-    #         for i in list(dir_l):
-    #             if direction == i:
-    #                 self.position_x += dir_l[i][0] * self.size
-    #                 self.position_y += dir_l[i][1] * self.size
 
 
 class GUI_key:
@@ -140,42 +104,6 @@ class GUI_key:
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_n:
                     return False
 
-    # def find_out_of_range(self, size, position_x, position_y):
-    #     """
-    #     get box's size and position and judge the 'direction' command is able to act
-    #     근데 이건 board에서 해결하는 것이 맞다. 여기서 이럴 문제가 아님. 영채 화이팅
-    #     :param size: int
-    #     :param position_x: int
-    #     :param position_y: int
-    #     :return: None
-    #     """
-    #     self.get_key()
-    #     a = GUI_screen(300, 300)
-    #     for i in list(dir_l):
-    #         if self.direction == i:
-    #             if position_x + dir_l[i][0] * size < 0:
-    #                 self.direction = 'None'
-    #             elif position_x + dir_l[i][0] * size > a.screen_size - size:
-    #                 self.direction = 'None'
-    #             elif position_y + dir_l[i][1] * size < 0:
-    #                 self.direction = 'None'
-    #             elif position_y + dir_l[i][1] * size > a.screen_size - size:
-    #                 self.direction = 'None'
-
-    # def return_key(self, size, position_x, position_y):
-    #     """
-    #
-    #     :param size: int
-    #     :param position_x:
-    #     :param position_y:
-    #     :return: None
-    #     """
-    #     self.get_key()
-    #     # self.find_out_of_range(size, position_x, position_y)
-    #     if self.direction != 'None':
-    #         print(self.direction)
-    #     return self.direction
-
 
 class GUI_management(GUI_key):
     """
@@ -184,20 +112,6 @@ class GUI_management(GUI_key):
     def __init__(self):
         super().__init__()
         self.screen = GUI_screen(5)
-
-    # def add_box(self, number=int, size=int, pos_x=int, pos_y=int):
-    #     """
-    #     이건 board에서 구현할 내용
-    #     여기는 실험을 위해 넣어놓았다
-    #     :param number: int
-    #     :param size: int
-    #     :param pos_x: int
-    #     :param pos_y: int
-    #     :return: None
-    #     """
-    #     global box_l
-    #     a = GUI_box(number, size, pos_x, pos_y, '128COLOR')
-    #     box_l.append(a)
 
     def show_start_page(self):
         while True:
@@ -210,14 +124,6 @@ class GUI_management(GUI_key):
             print(b)
             if b != 0:
                 return b
-
-    # def run_game(self):
-    #     # global box_l
-    #     # self.add_box(2, 140, 20, 20)
-    #
-    #     while True:
-    #         # self.add_box(2, 60, 30, 30)
-    #         self.screen.show_screen(140, 20, 20)
 
     def show_end_page(self):
         while True:
@@ -241,7 +147,6 @@ class GUI_screen:
         self.color = 'BACKGROUND COLOR'
         self.screen = pygame.display.set_mode((self.screen_size*100, self.screen_size*100))
 
-    # 참고 : https://nightshadow.tistory.com/entry/pygame-에서-텍스트-출력
     def show_text(self, word, position_x, position_y):
         """
         show text on screen

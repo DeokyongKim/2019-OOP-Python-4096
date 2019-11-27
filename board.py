@@ -2,12 +2,14 @@ import random
 
 from GUI import GUI_screen, GUI_management, GUI_key
 
-flag = 0 #박스를 하나도 이동시킬 수 없는 명령이 있었는지 판단(0일때 못움직임)
+flag = 0
+# 박스를 하나도 이동시킬 수 없는 명령이 있었는지 판단(0일때 못움직임)
 
 playing = True
 
 
-class box:#박스 객체 선언
+class box:
+    # 박스 객체 선언
 
     def __init__(self, num, locate, color):
         self.num = num
@@ -17,13 +19,17 @@ class box:#박스 객체 선언
         self.x = (locate-1)%s
         board[self.y][self.x] = self.num
 
-    def move_left(self):#위로 이동
+    def move_left(self):
+        # 위로 이동
         global flag
-        while True:#이동 못할 때 까지 반복
-            if board[self.y-1][self.x]==board[self.y][self.x] and self.y>0:#위에 칸이 있고 값이 같으면 병합
+        while True:
+            # 이동 못할 때 까지 반복
+            if board[self.y-1][self.x] == board[self.y][self.x] and self.y > 0:
+                # 위에 칸이 있고 값이 같으면 병합
                 board[self.y][self.x]=0
                 board[self.y-1][self.x] = 2 * self.num
-                for l in boxes:#기존의 박스 제거
+                for l in boxes:
+                    # 기존의 박스 제거
                     if l.locate == self.locate-s:
                         boxes.remove(l)
                         break
@@ -32,13 +38,15 @@ class box:#박스 객체 선언
                 self.num = 2 * self.num
                 flag = 1
                 break
-            elif board[self.y-1][self.x]==0 and self.y>0: #위에 칸이 있고 비어있으면 위로 이동
-                board[self.y][self.x]=0
-                board[self.y-1][self.x]=self.num
+            elif board[self.y-1][self.x] == 0 and self.y > 0:
+                # 위에 칸이 있고 비어있으면 위로 이동
+                board[self.y][self.x] = 0
+                board[self.y-1][self.x] = self.num
                 self.y = self.y - 1
                 self.locate = self.locate - s
                 flag = 1
-            else:#못 움직이면 끝내기
+            else:
+                # 못 움직이면 끝내기
                 break
 
         while True:#합친후에 더 움직일 수 있으면 움직이기
@@ -173,37 +181,37 @@ def player_move():#플레이어의 상자 움직이기
     while True:#플레이어의 상자 움직이는 방향 입력받음
         player_move = tmp.get_key()
 
-        if player_move == 'up':#위로 움직이는 경우
+        if player_move == 'left':#위로 움직이는 경우
             for i in range(s):
                 for j in range(s):
                     if board[i][j] is not 0:#박스가 있는 칸 조사
                         for k in boxes:
                             if k.locate == s*i+j+1:#모든 박스 중에서 위치가 동일한 박스 조사
-                                k.move_up()#박스를 위로 이동
+                                k.move_left()#박스를 위로 이동
 
-        if player_move == 'down':#아래로 움직이는 경우
+        if player_move == 'right':#아래로 움직이는 경우
             for i in range(s-1, -1, -1):
                 for j in range(s):
                     if board[i][j] is not 0:#박스가 있는 칸 조사
                         for k in boxes:
                             if k.locate == s*i+j+1:#모든 박스 중에서 위치가 동일한 박스 조사
-                                k.move_down()#박스를 아래로 이동
+                                k.move_right()#박스를 아래로 이동
 
-        if player_move == 'right':#오른쪽으로 움직이는 경우
+        if player_move == 'down':#오른쪽으로 움직이는 경우
             for i in range(s):
                 for j in range(s-1, -1, -1):
                     if board[i][j]!=0:#박스가 있는 칸 조사
                         for k in boxes:
                             if k.locate == s*i+j+1:#모든 박스 중에서 위치가 동일한 박스 조사
-                                k.move_right()#박스를 오른쪽으로 이동
+                                k.move_down()#박스를 오른쪽으로 이동
 
-        if player_move == 'left':#왼쪽으로 움직이는 경우
+        if player_move == 'up':#왼쪽으로 움직이는 경우
             for i in range(s):
                 for j in range(s):
                     if board[i][j]!=0:#박스가 있는 칸 조사
                         for k in boxes:
                             if k.locate == s*i+j+1:#모든 박스 중에서 위치가 동일한 박스 조사
-                                k.move_left()#박스를 왼쪽으로 이동
+                                k.move_up()#박스를 왼쪽으로 이동
 
         if player_move in ['up', 'down', 'right', 'left'] and flag==1:#방향을 틀리게 입력하면 재입력
             break
