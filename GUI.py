@@ -41,25 +41,25 @@ class color_information:
                     return self.color[c]
         return self.color['BACKGROUND COLOR']
 
-
-class GUI_box:
-    """
-    about: make box object and save their information
-    """
-    def __init__(self, number=int, size=int, pos_x=int, pos_y=int, color=str):
-        """
-        save box's information such as...
-        :param number: int
-        :param size: int
-        :param pos_x: int
-        :param pos_y: int
-        :param color: str
-        """
-        self.number = number
-        self.size = size
-        self.position_x = pos_x
-        self.position_y = pos_y
-        self.color = color
+#
+# class GUI_box:
+#     """
+#     about: make box object and save their information
+#     """
+#     def __init__(self, number=int, size=int, pos_x=int, pos_y=int, color=str):
+#         """
+#         save box's information such as...
+#         :param number: int
+#         :param size: int
+#         :param pos_x: int
+#         :param pos_y: int
+#         :param color: str
+#         """
+#         self.number = number
+#         self.size = size
+#         self.position_x = pos_x
+#         self.position_y = pos_y
+#         self.color = color
 
     # def move(self, direction):
     #     """
@@ -83,9 +83,9 @@ class GUI_key:
     about: get keyboard input and manage them
     """
 
-    def get_key():
+    def get_key(self):
         """
-        get keyboard input and turn them into str object
+        get keyboard input about direction and turn them into str object
         :return: None
         """
         for event in pygame.event.get():
@@ -104,7 +104,11 @@ class GUI_key:
             if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
                 return 'down'
 
-    def get_number_key():
+    def get_number_key(self):
+        """
+        get keyboard input about numbers
+        :return: int, number chosen by keyboard
+        """
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -125,6 +129,16 @@ class GUI_key:
                     return 8
                 elif event.type == pygame.KEYDOWN:
                     return 0
+
+    def get_restart_key(self):
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_y:
+                    return True
+                elif event.type == pygame.KEYDOWN and event.key == pygame.K_n:
+                    return False
 
     # def find_out_of_range(self, size, position_x, position_y):
     #     """
@@ -163,11 +177,12 @@ class GUI_key:
     #     return self.direction
 
 
-class GUI_management:
+class GUI_management(GUI_key):
     """
     about: manage objects ( boxes ) and screen, all game
     """
     def __init__(self):
+        super().__init__()
         self.screen = GUI_screen(5)
 
     # def add_box(self, number=int, size=int, pos_x=int, pos_y=int):
@@ -191,7 +206,7 @@ class GUI_management:
             self.screen.show_text('Choose number 2~8', int(self.screen.screen_size * 100 / 4),
                                   int(self.screen.screen_size * 300 / 5))
 
-            b = GUI_key.get_number_key()
+            b = self.get_number_key()
             print(b)
             if b != 0:
                 return b
@@ -203,6 +218,16 @@ class GUI_management:
     #     while True:
     #         # self.add_box(2, 60, 30, 30)
     #         self.screen.show_screen(140, 20, 20)
+
+    def show_end_page(self):
+        while True:
+            self.screen.show_text('Game ended...', int(self.screen.screen_size * 200 / 5),
+                                  int(self.screen.screen_size * 200 / 5))
+            self.screen.show_text('Good luck Next time', int(self.screen.screen_size * 100 / 4),
+                                  int(self.screen.screen_size * 300 / 5))
+
+            b = self.get_restart_key()
+            return b
 
 
 class GUI_screen:
