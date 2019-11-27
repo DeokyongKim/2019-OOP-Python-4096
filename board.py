@@ -202,10 +202,29 @@ def player_move():#플레이어의 상자 움직이기
         if player_move in ['up', 'down', 'right', 'left'] and flag==1:#방향을 틀리게 입력하면 재입력
             break
 
+def is_game_over():
+    """
+    보드가 다 찼을 때 더 움직일 수 있는지 판단하는 함수
+    True면 게임이 끝남
+    :return: bool
+    """
+    for i in range(0, s-1):#양 옆, 위아래으로 합칠 수 있는지 판단
+        for j in range(0, s-1):
+            if board[i][j]!=0 and (board[i][j]==board[i][j+1] or board[i][j]==board[i+1][j]):
+                return False
+    return True
 
-
-
-
+def is_board_full():
+    """
+    보드가 다 찼는지 판단하는 함수
+    True면 보드가 다 참
+    :return: bool
+    """
+    for i in range(s):#각각의 칸이 0인지 판단
+        for j in range(s):
+            if board[i][j]==0:
+                return False
+    return True
 
 while True:
     while True:#변 길이 입력받기
@@ -228,6 +247,10 @@ while True:
             for j in range(s):
                 print("%d " %board[i][j],end='')
             print()
+        if is_board_full():
+            if is_game_over():
+                print("게임 종료")
+                break
         player_move()#방향 입력 받아 움직이기
         boxes.append(box(random.choice([2, 4]), random.choice(gen_box_locate()), 'White'))  # 상자 랜덤한 위치에 생성
 
