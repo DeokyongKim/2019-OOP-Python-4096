@@ -80,8 +80,6 @@ class GUI_key:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_2:
-                    return 2
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_3:
                     return 3
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_4:
@@ -158,7 +156,7 @@ class GUI_management(GUI_key):
         self.screen.screen.fill(color_information.color['BLACK'])
         self.screen.show_text('Hello This is 2048', 40, 'WHITE', int(self.screen.screen_size * 90 / 5),
                               int(self.screen.screen_size * 180 / 5))
-        self.screen.show_text('Choose number 2~8', 40, 'WHITE', int(self.screen.screen_size * 90 / 5),
+        self.screen.show_text('Choose number 3~8', 40, 'WHITE', int(self.screen.screen_size * 90 / 5),
                               int(self.screen.screen_size * 270 / 5))
         while True:
             b = self.get_number_key()
@@ -168,8 +166,8 @@ class GUI_management(GUI_key):
 
     def show_end_page(self, score):
         self.screen.screen.fill(color_information.color['BLACK'])
-        self.screen.show_text('Game ended...', 30, 'BLACK', 10, 10)
-        self.screen.show_text('Score: {}'.format(score), 30, 'BLACK', 10, 10)
+        self.screen.show_text('Game ended...', 50, 'WHITE', 10, 10)
+        self.screen.show_text('Score: {}'.format(score), 50, 'WHITE', 10, 50)
         while True:
             b = self.get_restart_key()
             return b
