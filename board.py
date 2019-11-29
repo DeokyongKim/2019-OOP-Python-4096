@@ -1,4 +1,4 @@
-import random
+import random, pygame
 
 from GUI import GUI_screen, GUI_management, GUI_key
 
@@ -290,17 +290,21 @@ while playing:
     # ID 입력받기
     id = tmp.show_ID_page()
 
+    pygame.display.update()
+
+    print("end!")
+
     # 변 길이 입력받기
     s = tmp.show_start_page()
 
     board = []
 
-    for _ in range(s):#게임보드 형성
-        board.append([0] * s) #board의 모든 수 0으로 선언(0이 비고 1이 참)
+    for _ in range(s):
+        # 게임보드 형성
+        board.append([0] * s)
+        # board의 모든 수 0으로 선언(0이 비고 1이 참)
 
-    boxes = []
-
-    boxes.append(box(random.choice([2, 4]), random.choice(gen_box_locate()), 'White'))# 상자 랜덤한 위치에 생성
+    boxes = [box(random.choice([2, 4]), random.choice(gen_box_locate()), 'White')]
 
     screen = GUI_screen(s)
 
