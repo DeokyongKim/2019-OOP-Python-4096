@@ -315,12 +315,13 @@ while playing:
         score = total_score()#박스의 num들의 총 합(점수)
 
         if move_done or in_flag:
-            screen.show_screen(board)
+            screen.show_screen(board, score)
             move_done = False
             in_flag = False
 
         if is_board_full():
             if is_game_over():
+                ### 여기에 서버 입력
                 playing = tmp.show_end_page()
                 break
         player_move()#방향 입력 받아 움직이기

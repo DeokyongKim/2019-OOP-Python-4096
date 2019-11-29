@@ -30,14 +30,15 @@ class color_information:
         '256COLOR': (232, 204, 114),
         '512COLOR': (232, 200, 101),
         '1024COLOR': (231, 197, 89),
-        '2048COLOR': (231, 195, 79)
+        '2048COLOR': (231, 195, 79),
+        '4096COLOR': (0, 0, 0)
     }
 
     def return_color(self, number):
         if number == 0:
             return self.color['BACKGROUND BOX COLOR']
         else:
-            for i in [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]:
+            for i in [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096]:
                 c = str(i) + 'COLOR'
                 if number == i:
                     return self.color[c]
@@ -184,7 +185,7 @@ class GUI_screen:
     def __init__(self, screen_size):
         self.screen_size = screen_size
         self.color = 'BACKGROUND COLOR'
-        self.screen = pygame.display.set_mode((self.screen_size*90, self.screen_size*100))
+        self.screen = pygame.display.set_mode((self.screen_size*90, self.screen_size*90 + 100))
 
     def show_text(self, word, font_size, color, position_x, position_y):
         """
@@ -202,9 +203,7 @@ class GUI_screen:
         self.screen.blit(textSurfaceObj, (position_x, position_y))
         pygame.display.flip()
 
-    def show_screen(self, board):
-        self.screen.fill(color_information.color[self.color])
-
+    def show_box(self, board):
         for i in range(self.screen_size):
             for j in range(self.screen_size):
                 c_i = color_information()
@@ -218,6 +217,14 @@ class GUI_screen:
                     else:
                         self.show_text(board[i][j], 31, 'WHITE', i * 90 + 22.5, j * 90 + 36)
 
+    def show_score(self, score):
+        self.show_text('Score', 50, 'BLACK', 10, self.screen_size * 90)
+        self.show_text(score, 50, 'BLACK', 10, self.screen_size * 90 + 50)
+
+    def show_screen(self, board, score):
+        self.screen.fill(color_information.color[self.color])
+        self.show_box(board)
+        self.show_score(score)
 
         pygame.display.flip()
 
