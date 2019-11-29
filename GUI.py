@@ -134,15 +134,15 @@ class GUI_management(GUI_key):
 
     def show_ID_page(self):
         while True:
-
+            self.screen.show_text('Type your ID', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
+                                  int(self.screen.screen_size * 200 / 5))
 
     def show_start_page(self):
+        self.screen.show_text('Hello This is 2048', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
+                              int(self.screen.screen_size * 200 / 5))
+        self.screen.show_text('Choose number 2~8', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
+                              int(self.screen.screen_size * 300 / 5))
         while True:
-            self.screen.show_text('Hello This is 2048', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
-                                  int(self.screen.screen_size * 200 / 5))
-            self.screen.show_text('Choose number 2~8', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
-                                  int(self.screen.screen_size * 300 / 5))
-
             b = self.get_number_key()
             print(b)
             if b != 0:
