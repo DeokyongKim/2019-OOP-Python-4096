@@ -166,11 +166,10 @@ class GUI_management(GUI_key):
             if b != 0:
                 return b
 
-    def show_end_page(self):
-        self.screen.show_text('Game ended...', 40, 'BLACK', int(self.screen.screen_size * 180 / 5),
-                              int(self.screen.screen_size * 180 / 5))
-        self.screen.show_text('Good luck Next time', 40, 'BLACK', int(self.screen.screen_size * 90 / 4),
-                              int(self.screen.screen_size * 270 / 5))
+    def show_end_page(self, score):
+        self.screen.screen.fill(color_information.color['BLACK'])
+        self.screen.show_text('Game ended...', 30, 'BLACK', 10, 10)
+        self.screen.show_text('Score: {}'.format(score), 30, 'BLACK', 10, 10)
         while True:
             b = self.get_restart_key()
             return b
