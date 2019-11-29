@@ -121,7 +121,8 @@ class GUI_key:
                          if event.key == i:
                             index = alphabet_key_l.index(i)
                             return alphabet_l[index]
-
+                    if event.key == pygame.K_KP_ENTER:
+                        return 'ENTER'
 
 
 class GUI_management(GUI_key):
@@ -133,9 +134,21 @@ class GUI_management(GUI_key):
         self.screen = GUI_screen(5)
 
     def show_ID_page(self):
+        ID = []
+        ID_string = ''
+        x_position = int(self.screen.screen_size * 100 / 4)
+        self.screen.show_text('Type your ID', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
+                              int(self.screen.screen_size * 200 / 5))
         while True:
-            self.screen.show_text('Type your ID', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
-                                  int(self.screen.screen_size * 200 / 5))
+            b = self.get_alphabet_key()
+            if b != 'ENTER':
+                ID.append(b)
+                ID_string = ''.join(ID)
+                self.screen.show_text(ID_string, 40, 'WHITE', x_position,
+                                      int(self.screen.screen_size * 300 / 5))
+                x_position += 10
+            else:
+                return ID_string
 
     def show_start_page(self):
         self.screen.show_text('Hello This is 2048', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
@@ -149,12 +162,11 @@ class GUI_management(GUI_key):
                 return b
 
     def show_end_page(self):
+        self.screen.show_text('Game ended...', 40, 'BLACK', int(self.screen.screen_size * 200 / 5),
+                              int(self.screen.screen_size * 200 / 5))
+        self.screen.show_text('Good luck Next time', 40, 'BLACK', int(self.screen.screen_size * 100 / 4),
+                              int(self.screen.screen_size * 300 / 5))
         while True:
-            self.screen.show_text('Game ended...', 40, 'BLACK', int(self.screen.screen_size * 200 / 5),
-                                  int(self.screen.screen_size * 200 / 5))
-            self.screen.show_text('Good luck Next time', 40, 'BLACK', int(self.screen.screen_size * 100 / 4),
-                                  int(self.screen.screen_size * 300 / 5))
-
             b = self.get_restart_key()
             return b
 
