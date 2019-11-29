@@ -104,6 +104,25 @@ class GUI_key:
                 elif event.type == pygame.KEYDOWN and event.key == pygame.K_n:
                     return False
 
+    def get_alphabet_key(self):
+        alphabet_l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                              'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+        alphabet_key_l = [pygame.K_a, pygame.K_b, pygame.K_c, pygame.K_d, pygame.K_e, pygame.K_f,
+                          pygame.K_g, pygame.K_h, pygame.K_i, pygame.K_j, pygame.K_k, pygame.K_l,
+                          pygame.K_m, pygame.K_n, pygame.K_o, pygame.K_p, pygame.K_q, pygame.K_r,
+                          pygame.K_s, pygame.K_t, pygame.K_u, pygame.K_v, pygame.K_w, pygame.K_x,
+                          pygame.K_y, pygame.K_z]
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    sys.exit()
+                elif event.type == pygame.KEYDOWN:
+                    for i in alphabet_key_l:
+                         if event.key == i:
+                            index = alphabet_key_l.index(i)
+                            return alphabet_l[index]
+
+
 
 class GUI_management(GUI_key):
     """
@@ -113,11 +132,15 @@ class GUI_management(GUI_key):
         super().__init__()
         self.screen = GUI_screen(5)
 
+    def show_ID_page(self):
+        while True:
+
+
     def show_start_page(self):
         while True:
-            self.screen.show_text('Hello This is 2048', int(self.screen.screen_size * 100 / 4),
+            self.screen.show_text('Hello This is 2048', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
                                   int(self.screen.screen_size * 200 / 5))
-            self.screen.show_text('Choose number 2~8', int(self.screen.screen_size * 100 / 4),
+            self.screen.show_text('Choose number 2~8', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
                                   int(self.screen.screen_size * 300 / 5))
 
             b = self.get_number_key()
@@ -127,9 +150,9 @@ class GUI_management(GUI_key):
 
     def show_end_page(self):
         while True:
-            self.screen.show_text('Game ended...', int(self.screen.screen_size * 200 / 5),
+            self.screen.show_text('Game ended...', 40, 'BLACK', int(self.screen.screen_size * 200 / 5),
                                   int(self.screen.screen_size * 200 / 5))
-            self.screen.show_text('Good luck Next time', int(self.screen.screen_size * 100 / 4),
+            self.screen.show_text('Good luck Next time', 40, 'BLACK', int(self.screen.screen_size * 100 / 4),
                                   int(self.screen.screen_size * 300 / 5))
 
             b = self.get_restart_key()
@@ -147,7 +170,7 @@ class GUI_screen:
         self.color = 'BACKGROUND COLOR'
         self.screen = pygame.display.set_mode((self.screen_size*100, self.screen_size*100))
 
-    def show_text(self, word, position_x, position_y):
+    def show_text(self, word, font_size, color, position_x, position_y):
         """
         show text on screen
         원하는 문장을 원하는 위치에 표시함
@@ -156,8 +179,8 @@ class GUI_screen:
         :param position_y: int
         :return:
         """
-        font = pygame.font.SysFont("notosanscjkkr", 40)
-        textSurfaceObj = font.render(str(word), True, color_information.color['WHITE'])
+        font = pygame.font.SysFont("notosanscjkkr", font_size)
+        textSurfaceObj = font.render(str(word), True, color_information.color[color ])
         self.screen.blit(textSurfaceObj, (position_x, position_y))
         pygame.display.flip()
 
@@ -170,7 +193,12 @@ class GUI_screen:
                 box_color = c_i.return_color(board[i][j])
                 pygame.draw.rect(self.screen, box_color, (i * 100 + 10, j * 100 + 10, 80, 80))
                 if board[i][j] != 0:
-                    self.show_text(board[i][j], i * 100 + 40, j * 100 + 40)
+                    if board[i][j] < 10:
+                        self.show_text(board[i][j], 40, 'WHITE', i * 100 + 40, j * 100 + 40)
+                    elif board[i][j] < 100:
+                        self.show_text(board[i][j], 40, 'WHITE', i * 100 + 35, j * 100 + 40)
+                    else:
+                        self.show_text(board[i][j], 35, 'WHITE', i * 100 + 25, j * 100 + 40)
         pygame.display.flip()
 
 
