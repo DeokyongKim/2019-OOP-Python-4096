@@ -190,13 +190,15 @@ class GUI_screen:
         """
         show text on screen
         원하는 문장을 원하는 위치에 표시함
-        :param word: any type.
+        :param color: str
+        :param font_size: int
+        :param word: any type
         :param position_x: int
         :param position_y: int
         :return:
         """
         font = pygame.font.SysFont("notosanscjkkr", font_size)
-        textSurfaceObj = font.render(str(word), True, color_information.color[color ])
+        textSurfaceObj = font.render(str(word), True, color_information.color[color])
         self.screen.blit(textSurfaceObj, (position_x, position_y))
         pygame.display.flip()
 
@@ -214,7 +216,9 @@ class GUI_screen:
                     elif board[i][j] < 100:
                         self.show_text(board[i][j], 36, 'WHITE', i * 90 + 31.5, j * 90 + 36)
                     else:
-                        self.show_text(board[i][j], 31.5, 'WHITE', i * 90 + 22.5, j * 90 + 36)
+                        self.show_text(board[i][j], 31, 'WHITE', i * 90 + 22.5, j * 90 + 36)
+
+
         pygame.display.flip()
 
 

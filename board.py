@@ -234,6 +234,7 @@ def player_move():#플레이어의 상자 움직이기
         if player_move in ['up', 'down', 'right', 'left'] and flag==1:#방향을 틀리게 입력하면 재입력
             break
 
+
 def is_game_over():
     """
     보드가 다 찼을 때 더 움직일 수 있는지 판단하는 함수
@@ -249,6 +250,7 @@ def is_game_over():
         if board[i][s-1]!=0 and board[i][s-1]== board[i+1][s-1]:
             return False
     return True
+
 
 def is_board_full():
     """
