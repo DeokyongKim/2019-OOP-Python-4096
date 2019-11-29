@@ -3,6 +3,7 @@ import random, pygame
 from GUI import GUI_screen, GUI_management, GUI_key
 
 move_done = False
+game_over = False
 flag = 0
 # 박스를 하나도 이동시킬 수 없는 명령이 있었는지 판단(0일때 못움직임)
 
@@ -279,9 +280,12 @@ def total_score():
     박스들의 num들의 총 합을 계산하여 리턴한다.
     :return: int
     """
+    global game_over
     total_score = 0
     for i in boxes:
         total_score += i.num
+        if i.num==8192:
+            game_over=True
     return total_score
 
 
@@ -319,6 +323,9 @@ while playing:
             move_done = False
             in_flag = False
 
+        if game_over:
+            break
+
         if is_board_full():
             if is_game_over():
                 ### 여기에 서버 입력
@@ -326,4 +333,4 @@ while playing:
                 break
         player_move()#방향 입력 받아 움직이기
         is_integr_clear()
-        boxes.append(box(random.choice([2, 4]), random.choice(gen_box_locate()), 'White'))  # 상자 랜덤한 위치에 생성
+        boxes.append(box(random.choice([2, 2, 2, 2, 4]), random.choice(gen_box_locate()), 'White'))  # 상자 랜덤한 위치에 생성
