@@ -138,27 +138,27 @@ class GUI_management(GUI_key):
     def show_ID_page(self):
         ID = []
         ID_string = ''
-        x_position = int(self.screen.screen_size * 100 / 4)
+        x_position = int(self.screen.screen_size * 100 / 5)
         self.screen.screen.fill(color_information.color['BLACK'])
-        self.screen.show_text('Type your ID', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
-                              int(self.screen.screen_size * 200 / 5))
+        self.screen.show_text('Type your ID (only Eng)', 40, 'WHITE', int(self.screen.screen_size * 90 / 5),
+                              int(self.screen.screen_size * 180 / 5))
         while True:
             b = self.get_alphabet_key()
-            if b != 'ENTER':
+            if b != 'ENTER' and len(ID) <= 15:
                 ID.append(b)
                 ID_string = ''.join(ID)
-                self.screen.show_text(b, 40, 'WHITE', x_position,
-                                      int(self.screen.screen_size * 300 / 5))
+                self.screen.show_text(b, 35, 'WHITE', x_position,
+                                      int(self.screen.screen_size * 270 / 5))
                 x_position += 18
             else:
                 return ID_string
 
     def show_start_page(self):
         self.screen.screen.fill(color_information.color['BLACK'])
-        self.screen.show_text('Hello This is 2048', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
-                              int(self.screen.screen_size * 200 / 5))
-        self.screen.show_text('Choose number 2~8', 40, 'WHITE', int(self.screen.screen_size * 100 / 4),
-                              int(self.screen.screen_size * 300 / 5))
+        self.screen.show_text('Hello This is 2048', 40, 'WHITE', int(self.screen.screen_size * 90 / 5),
+                              int(self.screen.screen_size * 180 / 5))
+        self.screen.show_text('Choose number 2~8', 40, 'WHITE', int(self.screen.screen_size * 90 / 5),
+                              int(self.screen.screen_size * 270 / 5))
         while True:
             b = self.get_number_key()
             print(b)
@@ -166,10 +166,10 @@ class GUI_management(GUI_key):
                 return b
 
     def show_end_page(self):
-        self.screen.show_text('Game ended...', 40, 'BLACK', int(self.screen.screen_size * 200 / 5),
-                              int(self.screen.screen_size * 200 / 5))
-        self.screen.show_text('Good luck Next time', 40, 'BLACK', int(self.screen.screen_size * 100 / 4),
-                              int(self.screen.screen_size * 300 / 5))
+        self.screen.show_text('Game ended...', 40, 'BLACK', int(self.screen.screen_size * 180 / 5),
+                              int(self.screen.screen_size * 180 / 5))
+        self.screen.show_text('Good luck Next time', 40, 'BLACK', int(self.screen.screen_size * 90 / 4),
+                              int(self.screen.screen_size * 270 / 5))
         while True:
             b = self.get_restart_key()
             return b
@@ -184,7 +184,7 @@ class GUI_screen:
     def __init__(self, screen_size):
         self.screen_size = screen_size
         self.color = 'BACKGROUND COLOR'
-        self.screen = pygame.display.set_mode((self.screen_size*100, self.screen_size*100))
+        self.screen = pygame.display.set_mode((self.screen_size*90, self.screen_size*100))
 
     def show_text(self, word, font_size, color, position_x, position_y):
         """
@@ -207,14 +207,14 @@ class GUI_screen:
             for j in range(self.screen_size):
                 c_i = color_information()
                 box_color = c_i.return_color(board[i][j])
-                pygame.draw.rect(self.screen, box_color, (i * 100 + 10, j * 100 + 10, 80, 80))
+                pygame.draw.rect(self.screen, box_color, (i * 90 + 9, j * 90 + 9, 72, 72))
                 if board[i][j] != 0:
                     if board[i][j] < 10:
-                        self.show_text(board[i][j], 40, 'WHITE', i * 100 + 40, j * 100 + 40)
+                        self.show_text(board[i][j], 36, 'WHITE', i * 90 + 36, j * 90 + 36)
                     elif board[i][j] < 100:
-                        self.show_text(board[i][j], 40, 'WHITE', i * 100 + 35, j * 100 + 40)
+                        self.show_text(board[i][j], 36, 'WHITE', i * 90 + 31.5, j * 90 + 36)
                     else:
-                        self.show_text(board[i][j], 35, 'WHITE', i * 100 + 25, j * 100 + 40)
+                        self.show_text(board[i][j], 31.5, 'WHITE', i * 90 + 22.5, j * 90 + 36)
         pygame.display.flip()
 
 
