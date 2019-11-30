@@ -1,4 +1,3 @@
-
 # 참고 : https://snowdeer.github.io/python/2018/09/11/pygame-example/
 # 참고 : https://bluese05.tistory.com/5
 # 참고 : https://nightshadow.tistory.com/entry/pygame-에서-텍스트-출력
@@ -34,7 +33,7 @@ class color_information:
         '4096COLOR': (0, 0, 0)
     }
 
-    def return_color(self, number):
+    def get_color(self, number):
         if number == 0:
             return self.color['BACKGROUND BOX COLOR']
         else:
@@ -72,6 +71,9 @@ class GUI_key:
                 return 'down'
 
     def get_number_key(self):
+        ###################################
+        # input으로 입력받으면 훪씬 간단 시도해볼것#
+        ###################################
         """
         get keyboard input about numbers
         :return: int, number chosen by keyboard
@@ -107,7 +109,7 @@ class GUI_key:
 
     def get_alphabet_key(self):
         alphabet_l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-                              'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+                      'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         alphabet_key_l = [pygame.K_a, pygame.K_b, pygame.K_c, pygame.K_d, pygame.K_e, pygame.K_f,
                           pygame.K_g, pygame.K_h, pygame.K_i, pygame.K_j, pygame.K_k, pygame.K_l,
                           pygame.K_m, pygame.K_n, pygame.K_o, pygame.K_p, pygame.K_q, pygame.K_r,
@@ -119,7 +121,7 @@ class GUI_key:
                     sys.exit()
                 elif event.type == pygame.KEYDOWN:
                     for i in alphabet_key_l:
-                         if event.key == i:
+                        if event.key == i:
                             index = alphabet_key_l.index(i)
                             return alphabet_l[index]
                     if event.key == pygame.K_RETURN:
@@ -130,6 +132,7 @@ class GUI_management(GUI_key):
     """
     about: manage objects ( boxes ) and screen, all game
     """
+
     def __init__(self):
         super().__init__()
         self.screen = GUI_screen(5)
@@ -182,7 +185,7 @@ class GUI_screen:
     def __init__(self, screen_size):
         self.screen_size = screen_size
         self.color = 'BACKGROUND COLOR'
-        self.screen = pygame.display.set_mode((self.screen_size*90, self.screen_size*90 + 100))
+        self.screen = pygame.display.set_mode((self.screen_size * 90, self.screen_size * 90 + 100))
 
     def show_text(self, word, font_size, color, position_x, position_y):
         """
@@ -204,7 +207,7 @@ class GUI_screen:
         for i in range(self.screen_size):
             for j in range(self.screen_size):
                 c_i = color_information()
-                box_color = c_i.return_color(board[i][j])
+                box_color = c_i.get_color(board[i][j])
                 pygame.draw.rect(self.screen, box_color, (i * 90 + 9, j * 90 + 9, 72, 72))
                 if board[i][j] != 0:
                     if board[i][j] < 10:
