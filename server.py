@@ -1,3 +1,5 @@
+# 참고 : https://webnautes.tistory.com/1381
+
 import socket
 from _thread import *
 
@@ -46,8 +48,9 @@ def threaded(client_socket, addr):
 
     client_socket.close()
 
-
+######## 여기를 수정하세요!############
 HOST = '127.0.0.1'
+##################################
 PORT = 9998
 
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

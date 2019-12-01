@@ -3,7 +3,9 @@ import socket
 
 class Client:
     def __init__(self):
+        ######## 여기를 수정하세요!############
         self.HOST = '127.0.0.1'
+        ##################################
         self.PORT = 9998
 
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
