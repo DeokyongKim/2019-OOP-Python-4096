@@ -1,3 +1,5 @@
+# 참고 : https://www.opentutorials.org/module/2980/17436
+
 import random, time
 
 from GUI import GUI_screen, GUI_management, GUI_key
