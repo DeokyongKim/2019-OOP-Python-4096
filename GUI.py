@@ -8,6 +8,7 @@
 
 import pygame
 import sys
+from client import Client
 
 
 class color_information:
@@ -206,11 +207,15 @@ class GUI_management(GUI_key):
         self.screen.show_text('ID: {}'.format(player_id), 40, 'WHITE', 10, 50)
         self.screen.show_text('Score: {}'.format(score), 50, 'WHITE', 10, 90)
         try:
-            raise ConnectionError
-            # server 통신, 최고점수 받아옴 
+            message = player_id + ',' + str(int(score/game_time))
+            cl = Client()
+            get = cl.client_message(message)
             self.screen.show_text('Best Score is', 40, 'WHITE', 10, 130)
-            self.screen.show_text('{}'.format("""여기에 최고점수 넣기"""), 50, 'WHITE', 10, 170)
-            self.screen.show_text('Press any key', 50, 'WHITE', 10, 210)
+            self.screen.show_text('ID: {}'.format(get[0]), 50, 'WHITE', 10, 170)
+            self.screen.show_text('SCORE: {}'.format(get[1]), 50, 'WHITE', 10, 210)
+            self.screen.show_text('Your Rank: {}th'.format(int(get[2]) + 1), 50, 'WHITE', 10, 250)
+
+            self.screen.show_text('Press any key', 50, 'WHITE', 10, 290)
             pass
 
         except ConnectionError:

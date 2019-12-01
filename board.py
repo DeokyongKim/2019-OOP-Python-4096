@@ -310,6 +310,7 @@ while playing:
 
     # ID 입력받기
     id = tmp.show_ID_page()
+    id = 'Unkown' if id == '' else id
     # 변 길이 입력받기
     s = tmp.show_start_page()
 
