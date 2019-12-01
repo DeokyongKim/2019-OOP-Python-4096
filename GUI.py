@@ -34,6 +34,11 @@ class color_information:
     }
 
     def get_color(self, number):
+        """
+        입력된 숫자에 맞는 색의 RGB 값을 return 하는 함수
+        :param number: int
+        :return: tuple
+        """
         if number == 0:
             return self.color['BACKGROUND BOX COLOR']
         else:
@@ -49,83 +54,68 @@ class GUI_key:
     about: get keyboard input and manage them
     """
 
+    def __init__(self):
+        self.alphabet = {pygame.K_a: 'a', pygame.K_b: 'b', pygame.K_c: 'c', pygame.K_d: 'd', pygame.K_e: 'e',
+                         pygame.K_f: 'f', pygame.K_g: 'g', pygame.K_h: 'h', pygame.K_i: 'i', pygame.K_j: 'j',
+                         pygame.K_k: 'k', pygame.K_l: 'l', pygame.K_m: 'm', pygame.K_n: 'n', pygame.K_o: 'o',
+                         pygame.K_p: 'p', pygame.K_q: 'q', pygame.K_r: 'r', pygame.K_s: 's', pygame.K_t: 't',
+                         pygame.K_u: 'u', pygame.K_v: 'v', pygame.K_w: 'w', pygame.K_x: 'x', pygame.K_y: 'y',
+                         pygame.K_z: 'z'}
+
+        self.number = {pygame.K_0: 0, pygame.K_1: 1, pygame.K_2: 2, pygame.K_3: 3, pygame.K_4: 4, pygame.K_5: 5,
+                       pygame.K_6: 6, pygame.K_7: 7, pygame.K_8: 8, pygame.K_9: 9}
+        self.command = {pygame.K_BACKSPACE: 'backspace', pygame.K_RETURN: 'return'}
+        self.direction = {pygame.K_UP: 'up', pygame.K_DOWN: 'down', pygame.K_LEFT: 'left', pygame.K_RIGHT: 'right'}
+        self.key_l = [self.alphabet, self.number, self.command, self.direction]
+
     def get_key(self):
-        """
-        get keyboard input about direction and turn them into str object
-        :return: None
-        """
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                sys.exit()
-
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_LEFT:
-                return 'left'
-
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
-                return 'right'
-
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
-                return 'up'
-
-            if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
-                return 'down'
-
-    def get_number_key(self):
-        ###################################
-        # input으로 입력받으면 훪씬 간단 시도해볼것#
-        ###################################
-        """
-        get keyboard input about numbers
-        :return: int, number chosen by keyboard
-        """
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_3:
-                    return 3
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_4:
-                    return 4
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_5:
-                    return 5
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_6:
-                    return 6
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_7:
-                    return 7
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_8:
-                    return 8
-                elif event.type == pygame.KEYDOWN:
-                    return 0
+                for l in self.key_l:
+                    if event.type == pygame.KEYDOWN:
+                        for i in list(l):
+                            if event.key == i:
+                                return l[i]
+
+    def get_direction_key(self):
+        while True:
+            a = self.get_key()
+            if a in ['up', 'down', 'left', 'right']:
+                return a
+
+    def get_number_key(self, start, end):
+        """
+        from start to end
+        start ~ end-1 이내의 범위의 수가 들어오면 입력을 넣어주는 함수
+        :param start: int
+        :param end: int
+        :return: int
+        """
+        while True:
+            a = self.get_key()
+            if a.isdecimal():
+                if start <= a < end:
+                    return a
 
     def get_restart_key(self):
+        """
+        y 와 n 로 재시작 여부를 받아 bool 로 전달하는 함수
+        재시작을 원하면 True, 원하지 않으면 False 가 전달됨
+        :return: bool
+        """
         while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_y:
-                    return True
-                elif event.type == pygame.KEYDOWN and event.key == pygame.K_n:
-                    return False
+            a = self.get_key()
+            if a == 'y':
+                return True
+            elif a == 'n':
+                return False
 
     def get_alphabet_key(self):
-        alphabet_l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-                      'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-        alphabet_key_l = [pygame.K_a, pygame.K_b, pygame.K_c, pygame.K_d, pygame.K_e, pygame.K_f,
-                          pygame.K_g, pygame.K_h, pygame.K_i, pygame.K_j, pygame.K_k, pygame.K_l,
-                          pygame.K_m, pygame.K_n, pygame.K_o, pygame.K_p, pygame.K_q, pygame.K_r,
-                          pygame.K_s, pygame.K_t, pygame.K_u, pygame.K_v, pygame.K_w, pygame.K_x,
-                          pygame.K_y, pygame.K_z]
         while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
-                elif event.type == pygame.KEYDOWN:
-                    for i in alphabet_key_l:
-                        if event.key == i:
-                            index = alphabet_key_l.index(i)
-                            return alphabet_l[index]
-                    if event.key == pygame.K_RETURN:
-                        return 'ENTER'
+            a = self.get_key()
+            if a.
 
 
 class GUI_management(GUI_key):
@@ -138,6 +128,11 @@ class GUI_management(GUI_key):
         self.screen = GUI_screen(5)
 
     def show_ID_page(self):
+        """
+        ID 입력을 받는 함수
+        13글자 초과의 ID는 입력 도중 입력을 완료함
+        :return: str
+        """
         ID = []
         ID_string = ''
         x_position = int(self.screen.screen_size * 100 / 5)
@@ -146,7 +141,7 @@ class GUI_management(GUI_key):
                               int(self.screen.screen_size * 180 / 5))
         while True:
             b = self.get_alphabet_key()
-            if b != 'ENTER' and len(ID) <= 15:
+            if b != 'ENTER' and len(ID) <= 13:
                 ID.append(b)
                 ID_string = ''.join(ID)
                 self.screen.show_text(b, 35, 'WHITE', x_position,
@@ -156,6 +151,10 @@ class GUI_management(GUI_key):
                 return ID_string
 
     def show_start_page(self):
+        """
+        시작 화면을 보여주는 함수. 변의 길이를 입력받음
+        :return: int
+        """
         self.screen.screen.fill(color_information.color['BLACK'])
         self.screen.show_text('Hello This is 2048', 40, 'WHITE', int(self.screen.screen_size * 90 / 5),
                               int(self.screen.screen_size * 180 / 5))
@@ -167,10 +166,20 @@ class GUI_management(GUI_key):
             if b != 0:
                 return b
 
-    def show_end_page(self, score):
+    def show_end_page(self, player_id, score):
+        """
+        게임이 끝났을 때의 화면을 보여주는 함수
+        또한 게임이 끝나면 재실행 여부를 물어 입력을 받음
+        :param player_id: str
+        :param score: int
+        :return: str
+        """
         self.screen.screen.fill(color_information.color['BLACK'])
         self.screen.show_text('Game ended...', 50, 'WHITE', 10, 10)
-        self.screen.show_text('Score: {}'.format(score), 50, 'WHITE', 10, 50)
+        self.screen.show_text('ID: {}'.format(player_id), 40, 'WHITE', 10, 50)
+        self.screen.show_text('Score: {}'.format(score), 50, 'WHITE', 10, 90)
+        self.screen.show_text('Retry?', 40, 'WHITE', 10, 130)
+        self.screen.show_text('Press y or n', 40, 'WHITE', 10, 170)
         while True:
             b = self.get_restart_key()
             return b
@@ -204,6 +213,12 @@ class GUI_screen:
         pygame.display.flip()
 
     def show_box(self, board):
+        """
+        GUI 에 박스를 표현하는 함수
+        여기서 박스는 보드 위의 판에 있는 네모 박스를 지칭한다
+        :param board: list
+        :return: None
+        """
         for i in range(self.screen_size):
             for j in range(self.screen_size):
                 c_i = color_information()
@@ -230,8 +245,8 @@ class GUI_screen:
 
 
 if __name__ == '__main__':
-    # a = GUI_management()
-    # a.show_start_page()
-    # a.run_game()
-    b = str(2) + 'COLOR'
-    print(b)
+    # a = GUI_screen(4)
+    # a.show_score(5403)
+
+    b = GUI_key()
+    print(b.get_key())
