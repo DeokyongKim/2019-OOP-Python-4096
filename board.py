@@ -243,10 +243,10 @@ def player_move():  # 플레이어의 상자 움직이기
 
 def is_game_over():
     """
-    보드가 다 찼을 때 더 움직일 수 있는지 판단하는 함수
-    True면 게임이 끝남
-    :return: bool
-    """
+        보드가 다 찼을 때 더 움직일 수 있는지 판단하는 함수
+        True면 게임이 끝남
+        :return: bool
+        """
     for i in range(0, s - 1):  # 양 옆, 위아래으로 합칠 수 있는지 판단
         for j in range(0, s - 1):
             if board[i][j] != 0 and (board[i][j] == board[i][j + 1] or board[i][j] == board[i + 1][j]):
@@ -297,6 +297,7 @@ def total_score():
 
 
 while playing:
+    # playing 은 계속 게임이 플레이되는지 확인하는 변수
     in_flag = True
     tmp = GUI_management()
 

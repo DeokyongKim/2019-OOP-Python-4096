@@ -9,8 +9,6 @@
 import pygame
 import sys
 
-dir_l = {'left': (-1, 0), 'right': (1, 0), 'up': (0, -1), 'down': (0, 1)}
-
 
 class color_information:
     """
@@ -64,13 +62,17 @@ class GUI_key:
                          pygame.K_u: 'u', pygame.K_v: 'v', pygame.K_w: 'w', pygame.K_x: 'x', pygame.K_y: 'y',
                          pygame.K_z: 'z'}
 
-        self.number = {pygame.K_0: 0, pygame.K_1: 1, pygame.K_2: 2, pygame.K_3: 3, pygame.K_4: 4, pygame.K_5: 5,
-                       pygame.K_6: 6, pygame.K_7: 7, pygame.K_8: 8, pygame.K_9: 9}
-        self.command = {pygame.K_BACKSPACE: 'backspace', pygame.K_RETURN: 'return'}
+        self.number = {pygame.K_0: '0', pygame.K_1: '1', pygame.K_2: '2', pygame.K_3: '3', pygame.K_4: '4',
+                       pygame.K_5: '5', pygame.K_6: '6', pygame.K_7: '7', pygame.K_8: '8', pygame.K_9: '9'}
+        self.command = {pygame.K_BACKSPACE: 'backspace', pygame.K_RETURN: 'return', pygame.K_SPACE: 'space'}
         self.direction = {pygame.K_UP: 'up', pygame.K_DOWN: 'down', pygame.K_LEFT: 'left', pygame.K_RIGHT: 'right'}
         self.key_l = [self.alphabet, self.number, self.command, self.direction]
 
     def get_key(self):
+        """
+        key 를 받는 기본이 되는 함수
+        :return: str
+        """
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -82,6 +84,10 @@ class GUI_key:
                                 return l[i]
 
     def get_direction_key(self):
+        """
+        direction 을 판별하는 함수
+        :return: str
+        """
         while True:
             a = self.get_key()
             if a in ['up', 'down', 'left', 'right']:
@@ -97,9 +103,9 @@ class GUI_key:
         """
         while True:
             a = self.get_key()
-            if str(a).isdecimal():
-                if start <= a < end:
-                    return a
+            if a.isdecimal():
+                if start <= int(a) < end:
+                    return int(a)
 
     def get_restart_key(self):
         """
@@ -115,6 +121,10 @@ class GUI_key:
                 return False
 
     def get_alphabet_key(self):
+        """
+        alphabet 을 받으면 그에 맞는 문자를 return 하는 함수
+        :return: str
+        """
         while True:
             a = self.get_key()
             if a.isalpha():
@@ -134,6 +144,8 @@ class GUI_management(GUI_key):
         """
         ID 입력을 받는 함수
         13글자 초과의 ID는 입력 도중 입력을 완료함
+        backspace 입력시 삭제 가능
+        enter 입력시 입력 종료
         :return: str
         """
         ID = []
@@ -181,6 +193,14 @@ class GUI_management(GUI_key):
         return self.get_restart_key()
 
     def show_rank_page(self, player_id, score):
+        """
+        server 와의 통신을 통해 자신의 점수를 서버에 올리고 서버의 최고점수를 받아 화면에 출력하는 함수
+        server 와 통신이 불가능할 땐 'No internet' 을 표시하고 넘어감
+        server 와 연결이 되지 않았을 때는 최고점수가 등록되지 않음
+        :param player_id: str
+        :param score: int
+        :return: None
+        """
         self.screen.screen.fill(color_information.color['BLACK'])
         self.screen.show_text('Game ended...', 50, 'WHITE', 10, 10)
         self.screen.show_text('ID: {}'.format(player_id), 40, 'WHITE', 10, 50)
@@ -248,10 +268,22 @@ class GUI_screen:
                         self.show_text(board[i][j], 31, 'WHITE', i * 90 + 22.5, j * 90 + 36)
 
     def show_score(self, score):
+        """
+        게임 도중 scree 에 점수를 표시하는 함수
+        :param score: int
+        :return: None
+        """
         self.show_text('Score', 50, 'BLACK', 10, self.screen_size * 90)
         self.show_text(score, 50, 'BLACK', 10, self.screen_size * 90 + 50)
 
     def show_screen(self, board, score):
+        """
+        게임 화면을 보여주는 함수
+        board 는 이차원 배열이어야 함
+        :param board: list
+        :param score: int
+        :return: None
+        """
         self.screen.fill(color_information.color[self.color])
         self.show_box(board)
         self.show_score(score)
