@@ -3,5 +3,8 @@
 import socket
 
 
-def check(self):
+def check():
     return socket.gethostbyname(socket.getfqdn())
+
+
+print(check())
