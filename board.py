@@ -2,10 +2,9 @@ import random, time
 
 from GUI import GUI_screen, GUI_management, GUI_key
 
-move_done = False
-game_over = False
-flag = 0
-# 박스를 하나도 이동시킬 수 없는 명령이 있었는지 판단(0일때 못움직임)
+move_done = False # 박스의 움직임이 끝났는지 판별하는 변수(True일때 끝남)
+game_over = False # 게임이 끝났는지 판별하는 변수(True일때 끝남)
+flag = 0 # 박스를 하나도 이동시킬 수 없는 명령이 있었는지 판단(0일때 못움직임)
 
 playing = True
 
@@ -13,13 +12,19 @@ playing = True
 class box:
     # 박스 객체 선언
     def __init__(self, num, locate, color):
+        """
+        박스의 숫자, 위치, 색 등의 정보를 선언하는 함수
+        :param num:박스의 숫자
+        :param locate: 박스의 위치
+        :param color: 박스의 색
+        """
         self.num = num
         self.locate = locate
         self.color = color
-        self.y = (locate - 1) // s
-        self.x = (locate - 1) % s
+        self.y = (locate - 1) // s # 보드에서의 y성분 index
+        self.x = (locate - 1) % s # 보드에서의 x성분 index
         self.is_integr = 0  # 합쳐졌는지 확인하는 함수(0이 안 합쳐짐)
-        board[self.y][self.x] = self.num
+        board[self.y][self.x] = self.num # 보드에 박스 배치
 
     def move_left(self):
         # 왼쪽으로 이동
@@ -181,24 +186,24 @@ class box:
             else:
                 break
 
-
-def is_range_in(player_s):  # 변의 길이가 2~8까지의 숫자인지를 판별
-    for i in ['2', '3', '4', '5', '6', '7', '8']:
-        if player_s == i:
-            return True
-    return False
-
-
-def gen_box_locate():  # 비어있는 곳을 찾고 그 곳중 랜덤한 위치 선정함
-    location = []
+def gen_box_locate():
+    """
+    비어있는 곳을 찾고 그 곳중 랜덤한 위치를 리턴하는 함수
+    :return: int
+    """
+    location = [] # 비어있는 칸의 위치를 저장하는 리스트
     for i in range(s):
         for j in range(s):
-            if board[i][j] == 0:
+            if board[i][j] == 0:#비어있는 칸의 위치를 location에 추가
                 location.append(s * i + j + 1)
     return location
 
 
-def player_move():  # 플레이어의 상자 움직이기
+def player_move():
+    """
+    플레이어가 박스를 움직이게 하는 함수
+    :return: none
+    """
     tmp = GUI_key()
     global flag
     flag = 0
@@ -237,7 +242,7 @@ def player_move():  # 플레이어의 상자 움직이기
                             if k.locate == s * i + j + 1:  # 모든 박스 중에서 위치가 동일한 박스 조사
                                 k.move_up()  # 박스를 왼쪽으로 이동
 
-        if player_move in ['up', 'down', 'right', 'left'] and flag == 1:  # 방향을 틀리게 입력하면 재입력
+        if player_move in ['up', 'down', 'right', 'left'] and flag == 1:  # 방향을 틀리게 입력하거나 박스가 안 움직이면 재입력
             break
 
 
@@ -277,7 +282,7 @@ def is_integr_clear():
     :return: none
     """
     global move_done
-    for i in boxes:  # 기존의 박스 제거
+    for i in boxes:  # is_integr의 값을 0으로 초기화
         i.is_integr = 0
     move_done = True
 
@@ -288,10 +293,10 @@ def total_score():
     :return: int
     """
     global game_over
-    total_score = 0
+    total_score = 0 # 점수들의 총 합을 나타내는 변수
     for i in boxes:
         total_score += i.num
-        if i.num == 8192:
+        if i.num == 8192: # num이 8192인 박스가 있으면 게임 종료
             game_over = True
     return total_score
 
@@ -313,11 +318,11 @@ while playing:
         board.append([0] * s)
         # board의 모든 수 0으로 선언(0이 비고 1이 참)
 
-    boxes = [box(random.choice([2, 4]), random.choice(gen_box_locate()), 'White')]
+    boxes = [box(random.choice([2, 4]), random.choice(gen_box_locate()), 'White')] # 박스 생성
 
     screen = GUI_screen(s)
 
-    while True:  # 상자 생성 - 상자 움직이기 실행
+    while True:  # 박스 생성 - 박스 움직이기 실행
         start = time.time()
 
         score = total_score()  # 박스의 num들의 총 합(점수)
