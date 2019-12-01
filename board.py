@@ -336,6 +336,9 @@ while playing:
             in_flag = False
 
         if game_over:
+            end = time.time()
+            tmp.show_rank_page(id, score, end - start)
+            playing = tmp.show_end_page()
             break
 
         if is_board_full():
