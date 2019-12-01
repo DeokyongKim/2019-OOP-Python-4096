@@ -191,7 +191,7 @@ class box:
 def gen_box_locate():
     """
     비어있는 곳을 찾고 그 곳중 랜덤한 위치를 리턴하는 함수
-    :return: int
+    :return: 비어있는 랜덤한 위치 (int)
     """
     location = [] # 비어있는 칸의 위치를 저장하는 리스트
     for i in range(s):
@@ -252,7 +252,7 @@ def is_game_over():
     """
         보드가 다 찼을 때 더 움직일 수 있는지 판단하는 함수
         True면 게임이 끝남
-        :return: bool
+        :return: 보드가 다 차서 못 움직이면 True, 움직일 수 있으면 False
         """
     for i in range(0, s - 1):  # 양 옆, 위아래으로 합칠 수 있는지 판단
         for j in range(0, s - 1):
@@ -269,7 +269,7 @@ def is_board_full():
     """
     보드가 다 찼는지 판단하는 함수
     True면 보드가 다 참
-    :return: bool
+    :return: 보드가 다 차면 True, 그렇지 않으면 False
     """
     for i in range(s):  # 각각의 칸이 0인지 판단
         for j in range(s):
@@ -292,7 +292,7 @@ def is_integr_clear():
 def total_score():
     """
     박스들의 num들의 총 합을 계산하여 리턴한다.
-    :return: int
+    :return: 박스들의 num의 총 합(int)
     """
     global game_over
     total_score = 0 # 점수들의 총 합을 나타내는 변수
