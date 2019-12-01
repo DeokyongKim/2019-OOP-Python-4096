@@ -207,7 +207,7 @@ class GUI_management(GUI_key):
         self.screen.show_text('Score: {}'.format(score), 50, 'WHITE', 10, 90)
         try:
             raise ConnectionError
-            # server 통신, 최고점수 받아옴
+            # server 통신, 최고점수 받아옴 
             self.screen.show_text('Best Score is', 40, 'WHITE', 10, 130)
             self.screen.show_text('{}'.format("""여기에 최고점수 넣기"""), 50, 'WHITE', 10, 170)
             self.screen.show_text('Press any key', 50, 'WHITE', 10, 210)
