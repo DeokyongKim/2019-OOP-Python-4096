@@ -192,7 +192,7 @@ class GUI_management(GUI_key):
         self.screen.show_text('Press y or n', 40, 'WHITE', 10, 50)
         return self.get_restart_key()
 
-    def show_rank_page(self, player_id, score):
+    def show_rank_page(self, player_id, score, game_time):
         """
         server 와의 통신을 통해 자신의 점수를 서버에 올리고 서버의 최고점수를 받아 화면에 출력하는 함수
         server 와 통신이 불가능할 땐 'No internet' 을 표시하고 넘어감

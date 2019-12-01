@@ -1,4 +1,4 @@
-import random, pygame
+import random, time
 
 from GUI import GUI_screen, GUI_management, GUI_key
 
@@ -318,6 +318,7 @@ while playing:
     screen = GUI_screen(s)
 
     while True:  # 상자 생성 - 상자 움직이기 실행
+        start = time.time()
 
         score = total_score()  # 박스의 num들의 총 합(점수)
 
@@ -331,7 +332,8 @@ while playing:
 
         if is_board_full():
             if is_game_over():
-                tmp.show_rank_page(id, score)
+                end = time.time()
+                tmp.show_rank_page(id, score, end - start)
                 playing = tmp.show_end_page()
                 break
         player_move()  # 방향 입력 받아 움직이기
