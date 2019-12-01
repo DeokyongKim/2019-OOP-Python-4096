@@ -203,7 +203,7 @@ def player_move():  # 플레이어의 상자 움직이기
     global flag
     flag = 0
     while True:  # 플레이어의 상자 움직이는 방향 입력받음
-        player_move = tmp.get_key()
+        player_move = tmp.get_direction_key()
 
         if player_move == 'left':  # 위로 움직이는 경우
             for i in range(s):

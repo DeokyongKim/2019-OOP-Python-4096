@@ -3,6 +3,8 @@
 # 참고 : https://nightshadow.tistory.com/entry/pygame-에서-텍스트-출력
 # 참고 : https://stackoverflow.com/questions/27664957/pygame-catching-enter-button
 # 참고 : https://stackoverflow.com/questions/5618878/how-to-convert-list-to-string
+# 참고 : https://m.blog.naver.com/PostView.nhn?blogId=lee95292&logNo=221201880034&proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F
+
 
 import pygame
 import sys
@@ -95,7 +97,7 @@ class GUI_key:
         """
         while True:
             a = self.get_key()
-            if a.isdecimal():
+            if str(a).isdecimal():
                 if start <= a < end:
                     return a
 
@@ -115,7 +117,8 @@ class GUI_key:
     def get_alphabet_key(self):
         while True:
             a = self.get_key()
-            if a.
+            if a.isalpha():
+                return a
 
 
 class GUI_management(GUI_key):
@@ -134,21 +137,25 @@ class GUI_management(GUI_key):
         :return: str
         """
         ID = []
-        ID_string = ''
         x_position = int(self.screen.screen_size * 100 / 5)
         self.screen.screen.fill(color_information.color['BLACK'])
         self.screen.show_text('Type your ID (only Eng)', 40, 'WHITE', int(self.screen.screen_size * 90 / 5),
                               int(self.screen.screen_size * 180 / 5))
         while True:
-            b = self.get_alphabet_key()
-            if b != 'ENTER' and len(ID) <= 13:
-                ID.append(b)
-                ID_string = ''.join(ID)
-                self.screen.show_text(b, 35, 'WHITE', x_position,
+            b = self.get_key()
+            if b != 'return' and len(ID) <= 13:
+                if b != 'backspace':
+                    ID.append(str(b))
+                elif len(ID) > 0:
+                    ID.pop()
+                self.screen.screen.fill(color_information.color['BLACK'])
+                self.screen.show_text('Type your ID (only Eng)', 40, 'WHITE', int(self.screen.screen_size * 90 / 5),
+                                      int(self.screen.screen_size * 180 / 5))
+                self.screen.show_text(''.join(ID), 35, 'WHITE', x_position,
                                       int(self.screen.screen_size * 270 / 5))
-                x_position += 18
+
             else:
-                return ID_string
+                return ''.join(ID)
 
     def show_start_page(self):
         """
@@ -160,29 +167,37 @@ class GUI_management(GUI_key):
                               int(self.screen.screen_size * 180 / 5))
         self.screen.show_text('Choose number 3~8', 40, 'WHITE', int(self.screen.screen_size * 90 / 5),
                               int(self.screen.screen_size * 270 / 5))
-        while True:
-            b = self.get_number_key()
-            print(b)
-            if b != 0:
-                return b
+        return self.get_number_key(3, 9)
 
-    def show_end_page(self, player_id, score):
+    def show_end_page(self):
         """
         게임이 끝났을 때의 화면을 보여주는 함수
         또한 게임이 끝나면 재실행 여부를 물어 입력을 받음
-        :param player_id: str
-        :param score: int
-        :return: str
+        :return: bool
         """
+        self.screen.screen.fill(color_information.color['BLACK'])
+        self.screen.show_text('Retry?', 40, 'WHITE', 10, 10)
+        self.screen.show_text('Press y or n', 40, 'WHITE', 10, 50)
+        return self.get_restart_key()
+
+    def show_rank_page(self, player_id, score):
         self.screen.screen.fill(color_information.color['BLACK'])
         self.screen.show_text('Game ended...', 50, 'WHITE', 10, 10)
         self.screen.show_text('ID: {}'.format(player_id), 40, 'WHITE', 10, 50)
         self.screen.show_text('Score: {}'.format(score), 50, 'WHITE', 10, 90)
-        self.screen.show_text('Retry?', 40, 'WHITE', 10, 130)
-        self.screen.show_text('Press y or n', 40, 'WHITE', 10, 170)
-        while True:
-            b = self.get_restart_key()
-            return b
+        try:
+            raise ConnectionError
+            # server 통신, 최고점수 받아옴
+            self.screen.show_text('Best Score is', 40, 'WHITE', 10, 130)
+            self.screen.show_text('{}'.format("""여기에 최고점수 넣기"""), 50, 'WHITE', 10, 170)
+            self.screen.show_text('Press any key', 50, 'WHITE', 10, 210)
+            pass
+
+        except ConnectionError:
+            self.screen.show_text('No internet', 40, 'WHITE', 10, 130)
+            self.screen.show_text('Press any key', 40, 'WHITE', 10, 170)
+        finally:
+            self.get_key()
 
 
 class GUI_screen:

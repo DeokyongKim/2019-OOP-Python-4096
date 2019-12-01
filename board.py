@@ -330,7 +330,8 @@ while playing:
 
         if is_board_full():
             if is_game_over():
-                playing = tmp.show_end_page(id, score)
+                tmp.show_rank_page(id, score)
+                playing = tmp.show_end_page()
                 break
         player_move()  # 방향 입력 받아 움직이기
         is_integr_clear()
